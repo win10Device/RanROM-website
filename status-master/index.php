@@ -93,7 +93,7 @@ if ($servers_list)
 			</div>
 		</div>
 
-		<div class="title">disk space</div>
+		<div class="title">disk space (dedicated)</div>
 		<div id="diskinfo" class="box">
 			<div>
 				<span id="disk-usage" class="value"><?php echo ($disk['total'] - $disk['free']); ?></span> /
