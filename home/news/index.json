@@ -1,0 +1,19 @@
+{
+  "versions" : [
+    {
+    	"current_release" : "",
+    	"release_date" : "",
+    	"force_update" : false,
+    	"why" : ""
+    },
+    {
+    	"version" : "0.0.1-EARLY_ALPHA",
+    	"release_date" : "DD/MM/YYYY",
+    	"change_log" : "/change_logs/JSON/PLACEHOLDER",
+    	"download" : "PLACEHOLDER.zip",
+    	"compress_hash" : "",
+    	"hashes" : true,
+    	"hash_type" : "MD5"
+    }
+  ]
+}
