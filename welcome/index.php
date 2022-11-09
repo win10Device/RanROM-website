@@ -36,8 +36,8 @@ include '../assets/layouts/header.php';
             </p>
             <p>
                 <a href="https://github.com/msaad1999" class="btn btn-primary my-2" target="_blank">See Creator</a>
-                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a> */ ?>
-            </p>
+                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a>
+            </p> */ ?>
         </div>
     </section>
 
