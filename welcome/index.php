@@ -25,7 +25,8 @@ include '../assets/layouts/header.php';
                     Please expect uptime to be low since this is a personal project.<br>
                     The main factor for this is restricted internet access time
                 </sub>
-
+	    
+	    <?php /*
                 <hr width="300" class="my-3">
 
                 <sub>
@@ -35,7 +36,7 @@ include '../assets/layouts/header.php';
             </p>
             <p>
                 <a href="https://github.com/msaad1999" class="btn btn-primary my-2" target="_blank">See Creator</a>
-                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a>
+                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a> */ ?>
             </p>
         </div>
     </section>
