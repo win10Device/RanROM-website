@@ -45,6 +45,9 @@ function check_logged_out() {
          		return true;
         		header("Location: ../login/");
         		exit();
+            } else {
+        	header("Location: ../home/");
+        	exit();
             }
          } else {
             $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
