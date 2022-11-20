@@ -5,7 +5,15 @@ include '../assets/layouts/header.php';
 check_logged_out();
 ?>
 
-
+<script src="../assets/vendor/alerty/js/alerty.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../assets/vendor/alerty/css/alerty.min.css">
+<?php
+if (isset($_SESSION['HTTP_USER_AGENT'])) { 
+         	if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+         		echo ('<script> alerty.toasts(\'We could not verify your session, please enter password\'); </script>');
+		}
+         }
+?>
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
@@ -34,7 +42,20 @@ check_logged_out();
 
                 <div class="form-group">
                     <label for="username" class="sr-only">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                    <?php 
+                	$user1 = $_SESSION['username'];
+                    	if (isset($_SESSION['HTTP_USER_AGENT'])) { 
+         			if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+         				echo("<input type=\"text\" id=\"username\" name=\"username\" class=\"form-control\" placeholder=\"Username\" value=$user1 required>");
+				} else { 
+					echo('<input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>');
+				}
+         		} else {
+         			echo('<input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>');
+         		}
+?>
+                    
+                    <!input type="text" id="username" name="username" class="form-control" placeholder="Username" value="" required autofocus>
                     <sub class="text-danger">
                         <?php
                             if (isset($_SESSION['ERRORS']['nouser']))
@@ -45,7 +66,18 @@ check_logged_out();
 
                 <div class="form-group">
                     <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+<?php
+                    if (isset($_SESSION['HTTP_USER_AGENT'])) { 
+         			if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+         				echo('<input type="password" id="password" name="password" class="form-control" placeholder="Password" required autofocus>');
+				} else { 
+					echo('<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>');
+				}
+         		} else {
+         			echo('<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>');
+         		}
+?>
+                    <!input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                     <sub class="text-danger">
                         <?php
                             if (isset($_SESSION['ERRORS']['wrongpassword']))

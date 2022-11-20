@@ -6,10 +6,11 @@ require '../../assets/includes/auth_functions.php';
 require '../../assets/includes/datacheck.php';
 require '../../assets/includes/security_functions.php';
 
+
 check_logged_out();
 
 if (!isset($_POST['loginsubmit'])){
-
+    
     header("Location: ../");
     exit();
 }
@@ -41,6 +42,7 @@ else {
     }
 
     
+
     require '../../assets/setup/db.inc.php';
 
     $username = $_POST['username'];
@@ -137,6 +139,7 @@ else {
                     $_SESSION['updated_at'] = $row['updated_at'];
                     $_SESSION['deleted_at'] = $row['deleted_at'];
                     $_SESSION['last_login_at'] = $row['last_login_at'];
+                    $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
 
 
                     /*
