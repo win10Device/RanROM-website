@@ -40,9 +40,22 @@ function check_logged_out() {
         return true;
     }
     else {
-
-        header("Location: ../home/");
+         if (isset($_SESSION['HTTP_USER_AGENT'])) { 
+         	if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+         		return true;
+         
+        		header("Location: ../login/");
+        		exit();
+    }
+}
+else
+{
+    $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+    header("Location: ../home/");
         exit();
+}
+
+        
     }
 }
 
@@ -98,7 +111,6 @@ function force_login($email) {
 
                 $_SESSION['auth'] = 'loggedin';
             }
-$_SESSION['game_data'] = $row['game_data'];
             $_SESSION['id'] = $row['id'];
             $_SESSION['username'] = $row['username'];
             $_SESSION['email'] = $row['email'];
