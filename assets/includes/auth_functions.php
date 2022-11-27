@@ -117,16 +117,16 @@ function force_login($email) {
                 $_SESSION['auth'] = 'loggedin';
             }
             $_SESSION['id'] = $row['id'];
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['first_name'] = $row['first_name'];
-            $_SESSION['last_name'] = $row['last_name'];
+            $_SESSION['username'] = htmlspecialchars($row['username']);
+            $_SESSION['email'] = htmlspecialchars($row['email']);
+            $_SESSION['first_name'] = htmlspecialchars($row['first_name']);
+            $_SESSION['last_name'] = htmlspecialchars($row['last_name']);
             $_SESSION['gender'] = $row['gender'];
-            $_SESSION['headline'] = $row['headline'];
-            $_SESSION['bio'] = $row['bio'];
-            $_SESSION['profile_image'] = $row['profile_image'];
-            $_SESSION['banner_image'] = $row['banner_image'];
-            $_SESSION['user_level'] = $row['user_level'];
+            $_SESSION['headline'] = htmlspecialchars($row['headline']);
+            $_SESSION['bio'] = htmlspecialchars($row['bio']);
+            $_SESSION['profile_image'] = htmlspecialchars($row['profile_image']);
+            $_SESSION['banner_image'] = htmlspecialchars($row['banner_image']);
+            $_SESSION['user_level'] = htmlspecialchars($row['user_level']);
             $_SESSION['verified_at'] = $row['verified_at'];
             $_SESSION['created_at'] = $row['created_at'];
             $_SESSION['updated_at'] = $row['updated_at'];

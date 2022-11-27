@@ -14,16 +14,17 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 	$result = mysqli_stmt_get_result($stmt);
         if ($row = mysqli_fetch_assoc($result)) {
 		$id = $row['id'];
-		$user = $row['username'];
-                $email = $row['email'];
-                $firstname = $row['first_name'];
-                $last_name = $row['last_name'];
+		$user = htmlspecialchars($row['username']);
+                $email = htmlspecialchars($row['email']);
+                $firstname = htmlspecialchars($row['first_name']);
+                $last_name = htmlspecialchars($row['last_name']);
                 $gender = $row['gender'];
-                $headline = $row['headline'];
-                $bio = $row['bio'];
-                $profile_image = $row['profile_image'];
-                $banner_image = $row['banner_image'];
-                $userlvl = $row['user_level'];
+                $headline = htmlspecialchars($row['headline']);
+                $bio = htmlspecialchars($row['bio']);
+                $profile_image = htmlspecialchars($row['profile_image']);
+                $banner_image = htmlspecialchars($row['banner_image']);
+                $userlvl = htmlspecialchars($row['user_level']);
                 $deleted = $row['deleted_at'];
+                $test = $row['licence_key'];
         }
 }
