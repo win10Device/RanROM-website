@@ -1,5 +1,5 @@
 <?php
-$username = $_GET['u'];
+$username = htmlspecialchars($_GET['u']);
 require '../assets/setup/db.inc.php';
     
 $sql = "SELECT * FROM users WHERE username=?;";
@@ -17,7 +17,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 		$user = htmlspecialchars($row['username']);
                 $email = htmlspecialchars($row['email']);
                 $firstname = htmlspecialchars($row['first_name']);
-                $last_name = htmlspecialchars($row['last_name']);
+                $lastname = htmlspecialchars($row['last_name']);
                 $gender = $row['gender'];
                 $headline = htmlspecialchars($row['headline']);
                 $bio = htmlspecialchars($row['bio']);

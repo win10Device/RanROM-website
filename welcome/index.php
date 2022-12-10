@@ -25,25 +25,24 @@ include '../assets/layouts/header.php';
                     Please expect uptime to be low since this is a personal project.<br>
                     The main factor for this is restricted internet access time
                 </sub>
-	    
-	    <?php /*
+
                 <hr width="300" class="my-3">
 
                 <sub>
-                    Hey if you like this small project, I would like it best if you decide to improve and contribute to it. We are probably
-                    too far apart for me to demand a nice coffee but for now a star would suffice.
+                   <! Hey if you like this small project, I would like it best if you decide to improve and contribute to it. We are probably
+                    too far apart for me to demand a nice coffee but for now a star would suffice.!>
                 </sub>
             </p>
             <p>
-                <a href="https://github.com/msaad1999" class="btn btn-primary my-2" target="_blank">See Creator</a>
-                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a>
-            </p> */ ?>
+                <?php /*<a href="https://github.com/msaad1999" class="btn btn-primary my-2" target="_blank">See Creator</a>
+                <a href="https://github.com/msaad1999/PHP-Login-System" class="btn btn-secondary my-2" target="_blank">See Repository</a>*/ ?>
+            </p>
         </div>
     </section>
 
     <div class="album py-5">
         <div class="container">
-
+<?php /*
             <div class="text-center text-muted mb-5">
                 <h2>Check Out My Similar Projects</h2>
                 <hr width="300">
@@ -96,7 +95,7 @@ include '../assets/layouts/header.php';
                     </div>
                 </div>
 
-            </div>
+            </div>*/ ?>
         </div>
     </div>
 

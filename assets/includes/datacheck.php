@@ -1,7 +1,7 @@
 <?php
 
 function availableUsername($conn, $username){
-
+    $username == htmlspecialchars($username);
     $sql = "select id from users where username=?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -26,7 +26,7 @@ function availableUsername($conn, $username){
 }
 
 function availableEmail($conn, $email){
-
+    $email == htmlspecialchars($email);
     $sql = "select id from users where email=?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {

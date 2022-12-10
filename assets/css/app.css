@@ -117,6 +117,7 @@ body {
     min-height: 330px;
     margin: 50px auto;
     /* background-color: #e6e5e1; */
+    
     border-radius: 0;
     border: 0;
 }
@@ -196,6 +197,7 @@ footer {
 #myFooter .navbar-brand {
     margin-top: 45px;
     height: 65px;
+    color: black;
 }
 
 #myFooter .footer-copyright p {

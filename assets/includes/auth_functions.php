@@ -86,7 +86,7 @@ function check_verified() {
 }
 
 function force_login($email) {
-
+    $email == htmlspecialchars($email);
     require '../assets/setup/db.inc.php';
     
     $sql = "SELECT * FROM users WHERE email=?;";

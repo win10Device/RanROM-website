@@ -28,8 +28,8 @@
                    
                 </a>
                  <?php if (!isset($_SESSION['auth'])) { ?>
-                   <a class="mt-4 mb-3 text-muted" target="_blank" href="https://akenodev.xyz/">
-                   	<b style="font-family:fantasy; font-size:12px; color:light_blue; position: relative; left: 25px; bottom: 4px;" > Special Thanks to akeno!</b>
+                  <!a class="mt-4 mb-3 text-muted" target="_blank" href="https://akenodev.xyz/">
+                   	<!b style="font-family:fantasy; font-size:12px; color:light_blue; position: relative; left: 25px; bottom: 8.5px;" > <!Special Thanks to akeno!</b>
                     	<?php } ?>
                     </a>
 

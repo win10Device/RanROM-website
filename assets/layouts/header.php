@@ -12,7 +12,10 @@ if (isset($_SESSION['auth']))
 
 generate_csrf_token();
 check_remember_me();
-
+if (!empty($_SESSION['deleted_at'])) {
+	header("Location: ../logout");
+	exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +41,5 @@ check_remember_me();
 
 </head>
 
-<body>
-
     <?php require 'navbar.php'; ?>
+
