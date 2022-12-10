@@ -9,6 +9,7 @@
     {
     	"version" : "0.0.1-EARLY_ALPHA",
     	"release_date" : "DD/MM/YYYY",
+        "host" :"",
     	"change_log" : "/change_logs/JSON/PLACEHOLDER",
     	"download" : "PLACEHOLDER.zip",
     	"compress_hash" : "",
