@@ -4,17 +4,68 @@
     	"current_release" : "",
     	"release_date" : "",
     	"force_update" : false,
-    	"why" : ""
+    	"reason" : ""
     },
+    {
+    	"_" : "This is a example",
+    	"version" : "Version of game",
+    	"release_date" : "In syntax of HH:MM DD/MM/YYYY (AEDT)",
+    	"change_log" : "Location of log file either to JSON or TXT",
+    	"download" : {
+    	    "_" : "This is the info on the file to download and verify",
+    	    "location" : "Location of compressed file",
+    	    "file_type" : "expected types; zip, 7z, gzip, tar (For backup files)",
+    	    "filename" : "The name of the compressed file, this needs to be exactly the same as the file that is to be downloaded",
+    	    "size" : "compressed file size in Kibibytes, example '0 KiB'",
+    	    "hash" : "SHA256 checksum of the file that is to be downloaded"
+    	},
+    	"files" : [
+	    {
+	    	"_" : "Reserved, Data for the JSON decoder to expect, at the moment will be ignored",
+    		"data" : "name size hash"
+    	    },
+    	    {
+    	    	"_" : "file out of the compressed file",
+    		"filename" : "name of file 0",
+    		"size" : "file size in Kibibytes, example '0 KiB'",
+    		"hash" : "SHA256 checksum"
+    	    },
+    	    {
+    	    	"_" : "file out of the compressed file",
+    		"filename" : "name of file 1",
+    		"size" : "file size in Kibibytes, example '0 KiB'",
+    		"hash" : "SHA256 checksum"
+    	    },
+    	    {
+    	    	"_" : "etc..."
+    	    }
+    	],
+    	"hash_type" : "Reserved, the hash type of all checksum(s) listed above, at the moment, anything defined will be ignored and default to SHA265"
+    },
+    
     {
     	"version" : "0.0.1-EARLY_ALPHA",
     	"release_date" : "DD/MM/YYYY",
-        "host" :"",
     	"change_log" : "/change_logs/JSON/PLACEHOLDER",
     	"download" : "PLACEHOLDER.zip",
-    	"compress_hash" : "",
-    	"hashes" : true,
-    	"hash_type" : "MD5"
+    	"download" : {
+    	    "location" : "/PLACEHOLDER.zip",
+    	    "file_type" : "7z",
+    	    "filename" : "",
+    	    "size" : "0 KiB",
+    	    "hash" : ""
+    	},
+    	"files" : [
+	    {
+    		"data" : "name size hash"
+    	    },
+    	    {
+    		"filename" : "file0",
+    		"size" : "0 KiB",
+    		"hash" : ""
+    	    }
+    	],
+    	"hash_type" : "SHA265"
     }
   ]
 }

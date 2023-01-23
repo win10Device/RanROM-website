@@ -14,7 +14,7 @@ function _cleaninjections($test) {
         "/to\:/i",
         "/Content\-Transfer\-Encoding\:/i"
     );
-    $ret = preg_replace($find, "", $test);
+    $ret = preg_replace($find, "no", $test);
     return $ret;
 }
 

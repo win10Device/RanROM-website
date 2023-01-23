@@ -1,4 +1,16 @@
 <?php
+function check_session() {
+	if(isset($_SESSION['HTTP_USER_AGENT'])) {
+		if (hash_equals($_SESSION['HTTP_USER_AGENT'], $_SERVER['HTTP_USER_AGENT'])) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+	$_SESSION['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+		return true;
+	}
+}
 function check_logged_in() {
 
     if (isset($_SESSION['auth'])){
@@ -40,17 +52,11 @@ function check_logged_out() {
         //$_SESSION['HTTP_USER_AGENT'] = false;
     }
     else {
-         if (isset($_SESSION['HTTP_USER_AGENT'])) { 
-         	if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+         if (!check_session()) { 
          		return true;
         		header("Location: ../login/");
         		exit();
-            } else {
-        	header("Location: ../home/");
-        	exit();
-            }
          } else {
-            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
             header("Location: ../home/");
             exit();
         }
@@ -62,15 +68,13 @@ function check_verified() {
     if (isset($_SESSION['auth'])) {
 
         if ($_SESSION['auth'] == 'verified') {
-        	if(isset($_SESSION['HTTP_USER_AGENT'])) {
-			if ($_SESSION['HTTP_USER_AGENT'] != md5($_SERVER['HTTP_USER_AGENT'])) {
+  		if (!check_session()) { 
         	 		//return false;
         			header("Location: ../login/");
         			exit();
     
             } else {
                 return true;
-            }
         }
     } elseif ($_SESSION['auth'] == 'loggedin') {
 

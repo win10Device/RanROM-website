@@ -33,7 +33,7 @@ if (isset($_POST['update-profile'])) {
 
     if (!verify_csrf_token()){
 
-        $_SESSION['STATUS']['editstatus'] = 'Request could not be validated';
+        $_SESSION['STATUS']['editstatus'] = 'Request could not be validated!';
         header("Location: ../");
         exit();
     }
@@ -62,19 +62,19 @@ if (isset($_POST['update-profile'])) {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-        $_SESSION['ERRORS']['emailerror'] = 'invalid email, try again';
+        $_SESSION['ERRORS']['emailerror'] = 'Invalid email, try again';
         header("Location: ../");
         exit();
     } 
     if ($_SESSION['email'] != $email && !availableEmail($conn, $email)) {
 
-        $_SESSION['ERRORS']['emailerror'] = 'email already taken';
+        $_SESSION['ERRORS']['emailerror'] = 'Email already taken!';
         header("Location: ../");
         exit();
     }
     if ( $_SESSION['username'] != $username && !availableUsername($conn, $username)) {
 
-        $_SESSION['ERRORS']['usernameerror'] = 'username already taken';
+        $_SESSION['ERRORS']['usernameerror'] = 'Username already exists!';
         header("Location: ../");
         exit();
     }
@@ -119,7 +119,7 @@ if (isset($_POST['update-profile'])) {
 						if ( $_SESSION['profile_image'] != "_defaultUser.png" ) {
 							if (!unlink('../../assets/uploads/users/' . $_SESSION['profile_image'])) {  
 
-								$_SESSION['ERRORS']['imageerror'] = 'old image could not be deleted';
+								$_SESSION['ERRORS']['imageerror'] = 'Old image could not be deleted, please contact server owner';
 								header("Location: ../");
 								exit();
 							} 
@@ -127,21 +127,21 @@ if (isset($_POST['update-profile'])) {
                     }
                     else
                     {
-                        $_SESSION['ERRORS']['imageerror'] = 'image size should be less than 10MB';
+                        $_SESSION['ERRORS']['imageerror'] = 'Image size should be less than 10MB';
                         header("Location: ../");
                         exit(); 
                     }
                 }
                 else
                 {
-                    $_SESSION['ERRORS']['imageerror'] = 'image upload failed, try again';
+                    $_SESSION['ERRORS']['imageerror'] = 'Image upload failed, try again';
                     header("Location: ../");
                     exit();
                 }
             }
             else
             {
-                $_SESSION['ERRORS']['imageerror'] = 'invalid image type, try again';
+                $_SESSION['ERRORS']['imageerror'] = 'Invalid image type, try again';
                 header("Location: ../");
                 exit();
             }
@@ -246,7 +246,7 @@ if (isset($_POST['update-profile'])) {
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
 
-            $_SESSION['ERRORS']['scripterror'] = 'SQL ERROR';
+            $_SESSION['ERRORS']['scripterror'] = 'Database Error';
             header("Location: ../");
             exit();
         } 

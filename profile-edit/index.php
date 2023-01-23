@@ -89,22 +89,22 @@ function xss_filter($data) {
 
                 <div class="form-group">
                     <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" value="<?php echo xss_filter($_SESSION['first_name']); ?>">
+                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" value="<?php echo xss_filter(htmlspecialchars_decode($_SESSION['first_name'])); ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" value="<?php echo xss_filter($_SESSION['last_name']); ?>">
+                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" value="<?php echo xss_filter(htmlspecialchars_decode($_SESSION['last_name'])); ?>">
                 </div>
 
                 <div class="form-group mt-4">
                     <label for="headline">Headline</label>
-                    <input type="text" id="headline" name="headline" class="form-control" placeholder="headline" value="<?php echo xss_filter($_SESSION['headline']); ?>">
+                    <input type="text" id="headline" name="headline" class="form-control" placeholder="headline" value="<?php echo xss_filter(htmlspecialchars_decode($_SESSION['headline'])); ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Profile Details</label>
-                    <textarea type="text" id="bio" name="bio" class="form-control" placeholder="Tell us about yourself..."><?php echo xss_filter($_SESSION['bio']); ?></textarea>
+                    <textarea type="text" id="bio" name="bio" class="form-control" placeholder="Tell us about yourself..."><?php echo xss_filter(htmlspecialchars_decode($_SESSION['bio'])); ?></textarea>
                 </div>
 
                 <div class="form-group mb-5">

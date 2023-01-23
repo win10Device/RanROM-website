@@ -40,8 +40,8 @@ check_logged_out();
                 </div>
 
                 <h6 class="h3 mt-3 mb-3 font-weight-normal text-muted text-center">Create an Account</h6>
-                <div class="text-center mb-3" style="font-family:fantasy; font-size:12px;">This website is still in development, if your account infomation is deemed to be inapprropriate, your account information will be edited and notified of the changes!</div>
-                <div class="text-center mb-3" style="font-family:fantasy; font-size:12px; position: relative; left: 0px; bottom: 15px;"">(Passwords cannot be viewed or edited)</div>
+                <div class="text-center mb-3" style="font-family:Sans-serif; font-size:12px;">This website is still in development, if your account infomation is deemed to be inapprropriate, your account information will be edited and notified of the changes!</div>
+                <div class="text-center mb-3" style="font-family:Sans-serif; font-size:12px; position: relative; left: 0px; bottom: 15px;"">(Passwords cannot be viewed or edited)</div>
 
                 <div class="text-center mb-3">
                     <small class="text-success font-weight-bold">
@@ -78,7 +78,7 @@ check_logged_out();
                 </div>
 
 <div class="text-center mb-3" >
-	<b class="text-danger" style="font-family:fantasy; font-size:12px; position: relative; left: 0px; bottom: 0px;" >Are security may not be the strongest, so please use a password you've never used before</b>
+	<b class="text-danger" style="font-family:Sans-serif; font-size:12px; position: relative; left: 0px; bottom: 0px;" >Are security may not be the strongest, so please use a password you've never used before</b>
 	</div>
 
 
@@ -93,8 +93,7 @@ check_logged_out();
                     <sub class="text-danger mb-4">
                         <?php
                             if (isset($_SESSION['ERRORS']['passworderror']))
-                                echo $_SESSION['ERRORS'] ['passworderror'];
-
+                                //echo $_SESSION['ERRORS'] ['passworderror'];
                         ?>
                     </sub>
                 </div>

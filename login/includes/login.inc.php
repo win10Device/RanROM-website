@@ -49,7 +49,6 @@ else {
     $password = $_POST['password'];
 
     if (empty($username) || empty($password)) {
-
         $_SESSION['STATUS']['loginstatus'] = 'fields cannot be empty';
         header("Location: ../");
         exit();
@@ -139,7 +138,8 @@ else {
                     $_SESSION['updated_at'] = $row['updated_at'];
                     $_SESSION['deleted_at'] = $row['deleted_at'];
                     $_SESSION['last_login_at'] = $row['last_login_at'];
-                    $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+                    $_SESSION['S_json'] = $row['sessions'];
+                    $_SESSION['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
 
 
                     /*

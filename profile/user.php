@@ -1,21 +1,16 @@
 <?php
-$host = $_SERVER['HTTP_HOST'];
 require './includes/user.inc.php';
-if (empty($deleted)) {
-	if (empty($id)) {
+if (!$deleted) {
+	if (!$id) {
 		$title = "User not found";
 		$user = "User was not found!<br>...";
 		$output_image = "https://media.tenor.com/7-TMUfFEAysAAAAi/menhera-sad.gif";
 		$output_image2 = $output_image;
 		$firstname = "Noone is here...";
-		$lastname = null;
-		$gender = null;
-		$headline = null;
-		$bio = null;
 	} else {
-		$title = "$user's profile";
-		$output_image = "../assets/uploads/users/$profile_image";
-		$output_image2 = "https://$host/assets/uploads/users/$profile_image";
+		$title = "{$user}'s profile";
+		$output_image = "../assets/uploads/users/{$profile_image}";
+		$output_image2 = "https://{$_SERVER['HTTP_HOST']}/assets/uploads/users/{$profile_image}";
 	}
 } else {
 	$title = "User not found";
@@ -25,30 +20,33 @@ if (empty($deleted)) {
 	$firstname = "Why?";
 	$lastname = null;
 	$gender = null;
-	$headline = null;
+        $headline = null;
 	$bio = null;
 }
 ?>
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="RanROM">
-<meta name="twitter:title" content="<?php echo "RanROM | $title"; ?>">
-<meta name="twitter:description" content="<?php echo "$user\n$firstname $lastname\n\n$bio"; ?>">
-<meta name="twitter:image" content="<?php echo $output_image2; ?>">
-<meta name="twitter:image:alt" content="No IMG?">
-
+<!DOCTYPE html>
+<head>
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="RanROM">
+	<meta name="twitter:title" content="<?php echo APP_NAME . ' | ' . $title; ?>">
+	<meta name="twitter:description" content="<?php echo "$user\n$firstname $lastname\n\n$bio"; ?>">
+	<meta name="twitter:image" content="<?php echo $output_image2; ?>">
+	<meta name="twitter:image:alt" content="No IMG?">
+</head>
 <?php
+$CUSTOM_METATAG = true;
 define('TITLE', "$title");
 include '../assets/layouts/header.php';
 if ($user == $_SESSION['username']) {
 	$user .= " (you)";
-}
+	}
 ?>
-
-<div class="row py-5 px-4 ">
+<div class="row py-5 px-4 box-shadow shadow">
     <div class="col-xl-12 col-md-12 col-sm-12 mx-auto ">
 
         <!-- Profile widget -->
         <div class="bg-white shadow rounded overflow-hidden">
+        
             <div class="px-4 pt-5 pb-5 bg-dark profile-cover">
                 <div class="media align-items-end profile-header">
                     <div class="profile mr-3">

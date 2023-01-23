@@ -1,5 +1,5 @@
 <?php
-
+http_response_code(204);
 require '../assets/includes/auth_functions.php';
 require '../assets/includes/datacheck.php';
 require '../assets/includes/security_functions.php';
@@ -13,17 +13,22 @@ function generate_licence_token() {
 		header("session: $newid");
     	}
 	require '../assets/setup/db.inc.php';
-	$sql = "SELECT * FROM SRG_users WHERE username=?;";
-	$stmt = mysqli_stmt_init($conn_game);
-	if (!mysqli_stmt_prepare($stmt, $sql)) {
-		header("Error: SQL ERROR");
-	} else {
-		mysqli_stmt_bind_param($stmt, "s", $username);
-		mysqli_stmt_execute($stmt);
-		$result = mysqli_stmt_get_result($stmt);
-        	if ($row = mysqli_fetch_assoc($result)) {
-        		$_SESSION['token'] = md5($username) . md5($row['licence_key']);
-        	}
+	if (!empty($username)) {
+		$sql = "SELECT * FROM SRG_users WHERE username=?;";
+		$stmt = mysqli_stmt_init($conn_game);
+		if (!mysqli_stmt_prepare($stmt, $sql)) {
+			header("Error: SQL ERROR");
+		} else {
+			mysqli_stmt_bind_param($stmt, "s", $username);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+        		if ($row = mysqli_fetch_assoc($result)) {
+        			$_SESSION['token'] = md5($username) . md5($row['licence_key']);
+        		}
+    		}
+    	} else {
+    		header("Error: fields cannot be empty");
+    		die();
     	}
 }
 
@@ -31,12 +36,14 @@ function verify_licence_token() {
     generate_licence_token();
     
     if (!empty($_POST['token'])) {
-
-        if (hash_equals($_SESSION['token'], $_POST['token'])) {
-
-            return true;
-        } 
-        else {
+	if (!empty($_SESSION['token'])) {
+        	if (hash_equals($_SESSION['token'], $_POST['token'])) {
+           		return true;
+        	} else {
+        		return false;
+        	}
+        
+    } else {
 
             return false;
         }
@@ -53,16 +60,6 @@ if (!isset($_POST['loginsubmit'])){
 }
 else {
 
-    /*
-    * -------------------------------------------------------------------------------
-    *   Securing against Header Injection
-    * -------------------------------------------------------------------------------
-    */
-
-    foreach($_POST as $key => $value){
-
-        $_POST[$key] = _cleaninjections(trim($value));
-    }
 
 
     /*

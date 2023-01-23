@@ -7,3 +7,5 @@ if (isset($_SESSION['auth']) && !isset($_COOKIE['rememberme'])){
         echo 'logout_redirect';
     }
 }
+?>
+

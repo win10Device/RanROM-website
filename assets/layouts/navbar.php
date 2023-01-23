@@ -1,4 +1,7 @@
-    <?php if (!isset($_SESSION['auth'])) { ?>
+<?php
+	//include '../assets/includes/auth_functions.php';
+?>
+<?php if (!isset($_SESSION['auth'])) { ?>
 
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-2">
 
@@ -15,11 +18,11 @@
 
                     <?php if (!isset($_SESSION['auth'])) { ?>
                         <!img src="../assets/images/logonotext.png" alt="" width="50" height="50" class="mr-3">
-                        <img src="../assets/images/chip1.png" alt="" width="50" height="50" class="mr-3">
+                        <img src="../assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
                         
                     <?php } else { ?>
                         <!img src="../assets/images/logonotextwhite.png" alt="" width="50" height="50" class="mr-3">
-                        <img src="../assets/images/chip1.png" alt="" width="50" height="50" class="mr-3">
+                        <img src="../assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
                         
                     <?php } ?>
 
@@ -72,7 +75,7 @@
                                 <a class="nav-link" href="../dashboard">Dashboard</a>
                             </li>
 
-                            <li class="nav-item">
+                            <li class="nav-item" >
                                 <a class="nav-link" href="../home">Home</a>
                             </li>
 
@@ -81,13 +84,9 @@
                             </li>
 
                             <div class="dropdown">
-                                <button class="btn btn-dark dropdown-toggle" type="button" id="imgdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="imgdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  <?php if(!check_session()) echo "disabled"; ?>>
                                     
-                                    <?php if ($_SESSION['username'] == 'wibbo'){ ?>
-<img class="navbar-img" src="https://cdn.discordapp.com/avatars/829506642696470558/ef00ec35ca1f0c256bf4b7cc0a75576a.png?size=256 class='card-img-profile">
-                            <?php } else{ ?>
-<img class="navbar-img" src="../assets/uploads/users/<?php echo $_SESSION['profile_image'] ?>">
-<?php } ?>
+				    <img class="navbar-img" src="../assets/uploads/users/<?php echo $_SESSION['profile_image'] ?>">
                                     <span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="imgdropdown">

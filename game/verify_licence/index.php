@@ -2,7 +2,7 @@
   <div>
     <label for="uname">Query licence: </label>
     <input
-      type="text"
+      type="search"
       id="uname"
       name="key"
       required
@@ -21,6 +21,7 @@
 
 
 <?php
+
 if (!empty($_POST['key'])) {
 	$key = htmlspecialchars($_POST['key']);
 	header("test1: $key");
@@ -28,9 +29,12 @@ if (!empty($_POST['key'])) {
 	$key = htmlspecialchars($_GET['key']);
 	header("test2: $key");
 }
-
+if ($_GET['key'] == "key") {
+	echo "ha ha... Very funny...<br>";
+}
 //require '../../assets/includes/auth_functions.php';
 //require '../../assets/includes/datacheck.php';
+$json = $_SESSION['S_json'];
 require '../../assets/includes/security_functions.php';
 
 //check_logged_in();
