@@ -14,21 +14,21 @@
 
 
             <div class="container">
-                <a class="navbar-brand" href="../home">
+                <a class="navbar-brand" href="/home">
 
                     <?php if (!isset($_SESSION['auth'])) { ?>
-                        <!img src="../assets/images/logonotext.png" alt="" width="50" height="50" class="mr-3">
-                        <img src="../assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
-                        
+                        <!img src="/assets/images/logonotext.png" alt="" width="50" height="50" class="mr-3">
+                        <img src="/assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
+
                     <?php } else { ?>
-                        <!img src="../assets/images/logonotextwhite.png" alt="" width="50" height="50" class="mr-3">
-                        <img src="../assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
-                        
+                        <!img src="/assets/images/logonotextwhite.png" alt="" width="50" height="50" class="mr-3">
+                        <img src="/assets/images/chip1.png" alt="?" width="50" height="50" class="mr-3">
+
                     <?php } ?>
 
                     <!?php echo APP_NAME; ?>
                     <b> <?php echo APP_NAME; ?> </b>
-                   
+
                 </a>
                  <?php if (!isset($_SESSION['auth'])) { ?>
                   <!a class="mt-4 mb-3 text-muted" target="_blank" href="https://akenodev.xyz/">
@@ -52,47 +52,50 @@
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../welcome">Welcome</a>
+                            <a class="nav-link" href="/welcome">Welcome</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://kiyodev.xyz">Thanks Kiyo</a>
                         </li>
 
                         <?php if (!isset($_SESSION['auth'])) { ?>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../contact">Contact Us</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link" href="../login">Login</a>
+                                <a class="nav-link" href="/contact">Contact Us</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../register">Signup</a>
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Signup</a>
                             </li>
 
                         <?php } else { ?>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../dashboard">Dashboard</a>
+                                <a class="nav-link" href="/dashboard">Dashboard</a>
                             </li>
 
                             <li class="nav-item" >
-                                <a class="nav-link" href="../home">Home</a>
+                                <a class="nav-link" href="/home">Home</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../contact">Contact Us</a>
+                                <a class="nav-link" href="/contact">Contact Us</a>
                             </li>
 
                             <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="imgdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  <?php if(!check_session()) echo "disabled"; ?>>
-                                    
-				    <img class="navbar-img" src="../assets/uploads/users/<?php echo $_SESSION['profile_image'] ?>">
+
+				    <img class="navbar-img" src="/assets/uploads/users/<?php echo $_SESSION['profile_image'] ?>">
                                     <span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="imgdropdown">
-                                    <a class="dropdown-item text-muted" href="../profile"><i class="fa fa-user pr-2"></i> Profile</a>
-                                    <a class="dropdown-item text-muted" href="../profile-edit"><i class="fa fa-pencil-alt pr-2"></i> Edit Profile</a>
-                                    <a class="dropdown-item text-muted" href="../logout"><i class="fa fa-running pr-2"></i> Logout</a>
+                                    <a class="dropdown-item text-muted" href="/profile"><i class="fa fa-user pr-2"></i> Profile</a>
+                                    <a class="dropdown-item text-muted" href="/profile-edit"><i class="fa fa-pencil-alt pr-2"></i> Edit Profile</a>
+                                    <a class="dropdown-item text-muted" href="/logout"><i class="fa fa-running pr-2"></i> Logout</a>
                                 </div>
                             </div>
 

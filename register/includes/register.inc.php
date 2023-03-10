@@ -2,9 +2,9 @@
 
 session_start();
 
-require '../../assets/includes/auth_functions.php';
-require '../../assets/includes/datacheck.php';
-require '../../assets/includes/security_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 check_logged_out();
 
@@ -22,6 +22,18 @@ if (isset($_POST['signupsubmit'])) {
         $_POST[$key] = _cleaninjections(trim($value));
     }
 
+
+    /*
+    * -------------------------------------------------------------------------------
+    *   Exit function, replaces the repeating code for the samething
+    * -------------------------------------------------------------------------------
+    */
+
+    function ExitFunc() {
+        header("Location: ../");
+        exit();
+    }
+
     /*
     * -------------------------------------------------------------------------------
     *   Verifying CSRF token
@@ -31,11 +43,8 @@ if (isset($_POST['signupsubmit'])) {
     if (!verify_csrf_token()){
 
         $_SESSION['STATUS']['signupstatus'] = 'Request could not be validated';
-        header("Location: ../");
-        exit();
+        ExitFunc();
     }
-
-
 
     require '../../assets/setup/db.inc.php';
     
@@ -67,40 +76,36 @@ if (isset($_POST['signupsubmit'])) {
     *   Data Validation
     * -------------------------------------------------------------------------------
     */
-
     if (empty($username) || empty($email) || empty($password) || empty($passwordRepeat)) {
 
         $_SESSION['ERRORS']['formerror'] = 'required fields cannot be empty, try again';
-        header("Location: ../");
-        exit();
+        ExitFunc();
     } else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
 
         $_SESSION['ERRORS']['usernameerror'] = 'Invalid Username';
-        header("Location: ../");
-        exit();
+        ExitFunc();
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $_SESSION['ERRORS']['emailerror'] = 'Invalid Email';
-        header("Location: ../");
-        exit();
+        ExitFunc();
     } else if ($password !== $passwordRepeat) {
 
         $_SESSION['ERRORS']['passworderror'] = "Password doesn\'t match!";
-        header("Location: ../");
-        exit();
+        ExitFunc();
     } else {
-
+	if(strlen($username) < 5) {
+            $_SESSION['ERRORS']['usernameerror'] = 'Username too short!';
+            ExitFunc();
+        }
         if (!availableUsername($conn, $username)){
 
             $_SESSION['ERRORS']['usernameerror'] = 'Username already exists!';
-            header("Location: ../");
-            exit();
+            ExitFunc();
         }
         if (!availableEmail($conn, $email)){
 
             $_SESSION['ERRORS']['emailerror'] = 'Email already taken!';
-            header("Location: ../");
-            exit();
+            ExitFunc();
         }
 
         /*
@@ -123,7 +128,7 @@ if (isset($_POST['signupsubmit'])) {
             $fileExt = explode('.', $fileName);
             $fileActualExt = strtolower(end($fileExt));
 
-            $allowed = array('jpg', 'jpeg', 'png', 'gif');
+            $allowed = array('jpg', 'jpeg', 'png', 'gif', 'webp');
             if (in_array($fileActualExt, $allowed)){
 
                 if ($fileError === 0){
@@ -131,29 +136,26 @@ if (isset($_POST['signupsubmit'])) {
                     if ($fileSize < 10000000){
 
                         $FileNameNew = uniqid('', true) . "." . $fileActualExt;
-                        $fileDestination = '../../assets/uploads/users/' . $FileNameNew;
+                        $fileDestination = "{$_SERVER['DOCUMENT_ROOT']}/assets/uploads/users/" . $FileNameNew;
                         move_uploaded_file($fileTmpName, $fileDestination);
 
                     }
                     else {
 
                         $_SESSION['ERRORS']['imageerror'] = 'Image size should be less than 10MB!';
-                        header("Location: ../");
-                        exit(); 
+                        ExitFunc();
                     }
                 }
                 else {
 
                     $_SESSION['ERRORS']['imageerror'] = 'Image upload failed, try again';
-                    header("Location: ../");
-                    exit();
+                    ExitFunc();
                 }
             }
             else {
 
                 $_SESSION['ERRORS']['imageerror'] = 'Invalid image type, try again';
-                header("Location: ../");
-                exit();
+                ExitFunc();
             }
         }
 
@@ -171,8 +173,7 @@ if (isset($_POST['signupsubmit'])) {
         if (!mysqli_stmt_prepare($stmt, $sql)) {
 
             $_SESSION['ERRORS']['scripterror'] = /*'SQL ERROR'*/'Database Error!';
-            header("Location: ../");
-            exit();
+            ExitFunc();
         } 
         else {
 
@@ -191,7 +192,7 @@ if (isset($_POST['signupsubmit'])) {
             require 'sendverificationemail.inc.php';
 
             $_SESSION['STATUS']['loginstatus'] = 'Account Created, Please login';
-            header("Location: ../../login/");
+            header("Location: /login/");
             exit();
         }
     }
@@ -201,6 +202,5 @@ if (isset($_POST['signupsubmit'])) {
 } 
 else {
 
-    header("Location: ../");
-    exit();
+    ExitFunc();
 }

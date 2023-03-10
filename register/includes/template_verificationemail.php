@@ -40,6 +40,14 @@
             font-size: 14px;
             border: 0;
         }
+	.rcorners2 {
+	    border-radius: 25px;
+	    border: 2px solid #e7e9eb;
+	    padding: 20px; 
+	    width: 200px;
+	    height: 150px;  
+	}
+
         /* ----------- responsivity ----------- */
 
         @media only screen and (max-width: 640px) {
@@ -77,6 +85,9 @@
             }
             .container580 {
                 width: 400px !important;
+            }
+            .container600 {
+                width: 500px !important;
             }
             .main-button {
                 width: 220px !important;
@@ -125,8 +136,7 @@
 </head>
 <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
-
+<table border="0" align="center" width="50%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="rcorners2" > <!--bg_color--!>
     <tr>
         <td align="center">
             <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
@@ -247,6 +257,9 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td height="80" style="font-size: 25px; line-height: 25px;">&nbsp;</td>
+                </tr>
             </table>
 
         </td>
@@ -258,7 +271,36 @@
     <tr>
         <td height="40" style="font-size: 40px; line-height: 40px;">&nbsp;</td>
     </tr>
-
+    <tr>
+        <td align="left">
+            <table border="0" width="450" align="left" cellpadding="0" cellspacing="0" class="container600">
+                <tr>
+                    <td align="left" style="color: #888888; font-size: 10px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 10px;">
+                        <div style="line-height: 10px">
+                            If you didn't sign-up for this website, you can delete the account completely using the link below
+                            <br>
+                            <a href="{{ delete_url }}">{{ delete_url }}</a>  
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <table border="0" width="450" align="left" cellpadding="0" cellspacing="0" class="container600">
+                <tr>
+                    <td align="left" style="color: #888888; font-size: 10px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 10px;">
+                        <div style="line-height: 10px">
+                            If you keep receiving this email, you may request your email to be blacklisted using the link below
+                            <br>
+                            <a href="{{ blacklist_url }}">{{ blacklist_url }}</a>  
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 
 </body>

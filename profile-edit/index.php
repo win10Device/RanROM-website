@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Edit Profile");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_verified();
 
 //XSS filter for session variables
@@ -19,7 +19,7 @@ function xss_filter($data) {
     <div class="row">
         <div class="col-md-4">
 
-            <?php include('../assets/layouts/profile-card.php'); ?>
+            <?php include("{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/profile-card.php"); ?>
 
         </div>
         <div class="col-md-1">
@@ -33,7 +33,7 @@ function xss_filter($data) {
                 <div class="picCard text-center">
                     <div class="avatar-upload">
                         <div class="avatar-preview text-center">
-                            <div id="imagePreview" style="background-image: url( ../assets/uploads/users/<?php echo $_SESSION['profile_image'] ?> );">
+                            <div id="imagePreview" style="background-image: url( /assets/uploads/users/<?php echo $_SESSION['profile_image'] ?> );">
                             </div>
                         </div>
                         <div class="avatar-edit">
@@ -158,7 +158,7 @@ function xss_filter($data) {
 
 <?php
 
-include '../assets/layouts/footer.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>
 

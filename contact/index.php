@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Contact Us");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 
 ?>
 
@@ -11,7 +11,7 @@ include '../assets/layouts/header.php';
     <div class="row">
         <div class="col-sm-3">
 
-            <?php include('../assets/layouts/profile-card.php'); ?>
+            <?php include("{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/profile-card.php"); ?>
 
         </div>
         <div class="col-sm-9 px-5">
@@ -82,6 +82,6 @@ include '../assets/layouts/header.php';
 
 <?php
 
-include '../assets/layouts/footer.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>

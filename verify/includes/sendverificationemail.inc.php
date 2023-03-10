@@ -45,7 +45,7 @@ if (isset($_POST['verifysubmit'])) {
 
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
-    $url = "localhost/loginsystem/verify/includes/verify.inc.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "https://{$_SERVER['HTTP_HOST']}/verify/includes/verify.inc.php?selector=" . $selector . "&validator=" . bin2hex($token);
     $expires = 'DATE_ADD(NOW(), INTERVAL 1 HOUR)';
 
     $email = $_SESSION['email'];
@@ -102,7 +102,7 @@ if (isset($_POST['verifysubmit'])) {
     $mail_variables['email'] = $email;
     $mail_variables['url'] = $url;
 
-    $message = file_get_contents("./template_verificationemail.php");
+    $message = file_get_contents("./a/template_verificationemail.php");
 
     foreach($mail_variables as $key => $value) {
         
@@ -122,8 +122,8 @@ if (isset($_POST['verifysubmit'])) {
         $mail->SMTPSecure = MAIL_ENCRYPTION;
         $mail->Port = MAIL_PORT;
 
-        $mail->setFrom(MAIL_USERNAME, APP_NAME);
-        $mail->addAddress($to, APP_NAME);
+        $mail->setFrom(MAIL_FROM, APP_NAME);
+        $mail->addAddress($to);
 
         $mail->isHTML(true);
         $mail->Subject = $subject;
@@ -134,10 +134,10 @@ if (isset($_POST['verifysubmit'])) {
     catch (Exception $e) {
 
         // for public use
-        $_SESSION['STATUS']['verify'] = 'email could not be sent, try again later';
+        $_SESSION['STATUS']['verify'] = 'email could not be sent, try again later' . $main->ErrorInfo;
 
         // for development use
-        // $_SESSION['STATUS']['mailstatus'] = 'email could not be sent. ERROR: ' . $mail->ErrorInfo;
+         $_SESSION['STATUS']['mailstatus'] = 'email could not be sent. ERROR: ' . $mail->ErrorInfo;
 
         header("Location: ../");
         exit();

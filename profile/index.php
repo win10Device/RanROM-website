@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Profile");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_verified();
 
 ?>
@@ -14,9 +14,9 @@ check_verified();
             <div class="px-4 pt-5 pb-5 bg-dark profile-cover">
                 <div class="media align-items-end profile-header">
                     <div class="profile mr-3">
-                        <img src="../assets/uploads/users/<?php echo $_SESSION['profile_image']; ?>" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        <img src="/assets/uploads/users/<?php echo $_SESSION['profile_image']; ?>" alt="..." width="130" class="rounded mb-2 img-thumbnail">
 
-                        <a href="../profile-edit" class="btn btn-dark btn-sm btn-block">Edit profile</a>
+                        <a href="/profile-edit" class="btn btn-dark btn-sm btn-block">Edit profile</a>
                     </div>
                     <div class="media-body mb-5 text-white">
                         <h4 class="mt-0 mb-0"><?php echo $_SESSION['username']; ?></h4>
@@ -63,7 +63,7 @@ check_verified();
 
 <?php
 
-include '../assets/layouts/footer.php'
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>
 

@@ -6,6 +6,15 @@
  * If you don't, this page WILL present a security risk to your users and your database
  * ---------------------------------------------------------------------------------------------------
  */
+wefoiuweyfqwhefoipqwefijowqefqwjekfioiwqhefg6y7qweufjjkwleojifh8webufjk	wejoif8h7g	wufkw	'
+f'p;oe	wiufy	wghejkfl;'
+	wef;lmk	wnjehfwjefkl	'
+wef	wkfu	wefjiowekfoiuyg	ewfiowohfu	woef
+//^ all of it to break the page and cause 500
+
+
+
+
 define('TITLE', "Test Page - DO NOT SHIP");
 
 include '../assets/layouts/header.php';

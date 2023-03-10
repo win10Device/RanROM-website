@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Login");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_logged_out();
 
 ?>
@@ -29,7 +29,7 @@ check_logged_out();
                         <input type="hidden" name="validator" value="<?php echo $validator; ?>">
 
                         <div class="text-center">
-                            <img class="mb-1" src="../assets/images/logo.png" alt="" width="130" height="130">
+                            <img class="mb-1" src="/assets/images/logo.png" alt="" width="130" height="130">
                         </div>
 
                         <h6 class="h5 mb-3 font-weight-normal text-muted text-center">Reset password</h6>
@@ -83,7 +83,7 @@ check_logged_out();
                         <?php insert_csrf_token(); ?>
 
                         <div class="text-center">
-                            <img class="mb-1" src="../assets/images/logo.png" alt="" width="130" height="130">
+                            <img class="mb-1" src="/assets/images/logo.png" alt="" width="130" height="130">
                         </div>
 
                         <h6 class="h5 mb-3 font-weight-normal text-muted text-center">Reset password</h6>
@@ -138,7 +138,7 @@ check_logged_out();
 
 <?php
 
-include '../assets/layouts/footer.php'
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php"
 
 ?>
 <noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/reset-password"); ?>"> </noscript>

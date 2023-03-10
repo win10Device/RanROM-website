@@ -5,7 +5,7 @@ $data = stripslashes($data);
 $data = htmlspecialchars($data);
 $username = $data;
 
-require '../assets/setup/db.inc.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/db.inc.php";
     
 $sql = "SELECT * FROM users WHERE username=?;";
 $stmt = mysqli_stmt_init($conn);

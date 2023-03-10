@@ -5,10 +5,10 @@
 
     <?php if (isset($_SESSION['auth'])) { ?>
 
-    <img alt='' class='card-img-top card-user-cover' src='../assets/images/banner.png'>
+    <img alt='' class='card-img-top card-user-cover' src='/assets/images/banner.png'>
     <div class='card-block'>
-        <a href='../profile'>
-		<img src='../assets/uploads/users/<?php echo $_SESSION['profile_image']; ?>' class='card-img-profile'>
+        <a href='/profile'>
+		<img src='/assets/uploads/users/<?php echo $_SESSION['profile_image']; ?>' class='card-img-profile'>
 	</a>
 	<div style = "position:relative; margin-top: -70px; left:44px; top:12px;">
 		<status-indicator style=" position:relative; background-color:white; scale:2.5;">
@@ -17,7 +17,7 @@
 	      		</a>
 	      	</status-indicator>	
 	</div>
-        <a href="../profile-edit">
+        <a href="/profile-edit">
             <i class="fa fa-pencil-alt fa-1x edit-profile" aria-hidden="true"></i>
             <!-- <i class="fa fa-female"></i> -->
         </a>
@@ -37,10 +37,10 @@
     
     <?php } else { ?>
 
-    <img alt='' class='card-img-top card-user-cover' src='../assets/images/banner.png'>
+    <img alt='' class='card-img-top card-user-cover' src='/assets/images/banner.png'>
     <div class='card-block'>
         <a href='https://github.com/msaad1999/PHP-Login-System'>
-            <img src='../assets/images/logo_blackbg.png' class='card-img-profile'>
+            <img src='/assets/images/logo_blackbg.png' class='card-img-profile'>
         </a>
         <h5  class='card-title'>
             PHP Login System
@@ -56,6 +56,6 @@
 
 </div>
 <style>
-@import '../assets/vendor/status-indicator/styles.css';
+@import '/assets/vendor/status-indicator/styles.css';
 </style>
 

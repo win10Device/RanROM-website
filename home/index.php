@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Home");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_verified();
 
 ?>
@@ -12,14 +12,14 @@ check_verified();
     <div class="row">
         <div class="col-sm-3">
 
-            <?php include('../assets/layouts/profile-card.php'); ?>
+            <?php include("{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/profile-card.php"); ?>
 
         </div>
         <div class="col-sm-9">
 
             <div class="d-flex align-items-center p-3 mt-5 mb-3 text-white-50 bg-purple rounded box-shadow">
-                <img class="mr-3" src="../assets/images/logonotextwhite.png" alt="" width="48" height="48">
-                <img class="mr-3" src="../assets/images/chip1(1).ico" alt="" width="24" height="24">
+                <img class="mr-3" src="/assets/images/logonotextwhite.png" alt="" width="48" height="48">
+                <img class="mr-3" src="/assets/images/chip1(1).ico" alt="" width="24" height="24">
                 <div class="lh-100">
                 <?php //test?>
                 <b style=\"font-family:verdana; font-size:12px; color:black;\">Successfully logged in!<br>
@@ -74,7 +74,7 @@ check_verified();
 
     <?php
 
-    include '../assets/layouts/footer.php'
+    include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php"
 
     ?>
 <noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/home"); ?>"> </noscript>

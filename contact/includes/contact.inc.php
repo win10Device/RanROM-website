@@ -2,15 +2,15 @@
 
 session_start();
 
-require '../../assets/setup/env.php';
-require '../../assets/includes/security_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/env.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../../assets/vendor/PHPMailer/src/Exception.php';
-require '../../assets/vendor/PHPMailer/src/PHPMailer.php';
-require '../../assets/vendor/PHPMailer/src/SMTP.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/Exception.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/PHPMailer.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/SMTP.php";
 
 if (isset($_POST['contact-submit'])) {
 

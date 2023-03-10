@@ -2,9 +2,9 @@
 
 session_start();
 
-require '../../assets/includes/auth_functions.php';
-require '../../assets/includes/datacheck.php';
-require '../../assets/includes/security_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 check_logged_out();
 
@@ -36,14 +36,13 @@ else {
     if (!verify_csrf_token()){
 
         $_SESSION['STATUS']['loginstatus'] = 'Request could not be validated';
-        
+
         header("Location: ../");
         exit();
     }
 
-    
 
-    require '../../assets/setup/db.inc.php';
+    require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/db.inc.php";
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -52,7 +51,7 @@ else {
         $_SESSION['STATUS']['loginstatus'] = 'fields cannot be empty';
         header("Location: ../");
         exit();
-    } 
+    }
     else {
 
         /*
@@ -91,7 +90,7 @@ else {
             $_SESSION['ERRORS']['scripterror'] = 'SQL ERROR';
             header("Location: ../");
             exit();
-        } 
+        }
         else {
 
             mysqli_stmt_bind_param($stmt, "s", $username);
@@ -108,12 +107,13 @@ else {
                     $_SESSION['ERRORS']['wrongpassword'] = 'wrong password';
                     header("Location: ../");
                     exit();
-                } 
+                }
                 else if ($pwdCheck == true) {
 
                     session_start();
 
-                    
+                    $_SESSION['SESSION_TYPE'] = "GUI";
+
                     if($row['verified_at'] != NULL){
 
                         $_SESSION['auth'] = 'verified';
@@ -140,7 +140,6 @@ else {
                     $_SESSION['last_login_at'] = $row['last_login_at'];
                     $_SESSION['S_json'] = $row['sessions'];
                     $_SESSION['HTTP_USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
-
 
                     /*
                     * -------------------------------------------------------------------------------
@@ -187,17 +186,17 @@ else {
                             exit();
                         }
                         else {
-                            
+
                             $hashedToken = password_hash($token, PASSWORD_DEFAULT);
                             mysqli_stmt_bind_param($stmt, "ssss", $_SESSION['email'], $selector, $hashedToken, date('Y-m-d\TH:i:s', time() + 864000));
                             mysqli_stmt_execute($stmt);
                         }
                     }
 
-                    header("Location: ../../home/");
+                    header("Location: /home/");
                     exit();
-                } 
-            } 
+                }
+            }
             else {
 
                 $_SESSION['ERRORS']['nouser'] = 'username does not exist';

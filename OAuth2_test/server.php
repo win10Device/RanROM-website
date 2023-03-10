@@ -1,7 +1,7 @@
 <?php
 $dsn      = 'mysql:dbname=klik_loginsystem;host=localhost';
-$username = 'root';
-$password = 'RaspberryClientAsServerDevice1632@MySQLForRaspberryServer2.1';
+$username = '';
+$password = '';
 
 // error reporting (this is a demo, after all!)
 ini_set('display_errors',1);error_reporting(E_ALL);

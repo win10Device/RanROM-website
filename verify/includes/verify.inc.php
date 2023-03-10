@@ -2,9 +2,9 @@
 
 session_start();
 
-require '../../assets/setup/env.php';
-require '../../assets/setup/db.inc.php';
-require '../../assets/includes/security_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/env.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/db.inc.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 if (isset($_GET['selector']) && isset($_GET['validator'])) {
 
@@ -123,7 +123,7 @@ if (isset($_GET['selector']) && isset($_GET['validator'])) {
                                 }
 
                                 $_SESSION['STATUS']['loginstatus'] = 'account activated, please login';
-                                header ("Location: ../../login/");
+                                header ("Location: /login/");
                             }
                         }
                     }

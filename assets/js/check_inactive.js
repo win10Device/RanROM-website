@@ -3,10 +3,10 @@ $(document).ready(function() {
         $.ajax({
             type: 'GET',
             async: false,
-            url: '../assets/includes/checkinactive.ajax.php',
+            url: '/assets/includes/checkinactive.ajax.php',
             success: function(response) {
                 if (response == 'logout_redirect') {
-                    location.href = "../login/";
+                    location.href = "/login/";
                 }
             }
         });

@@ -7,6 +7,6 @@ if (isset($_SESSION['auth'])) {
 }
 else {
 
-    header("Location: welcome");
+    header("Location: https://{$_SERVER['HTTP_HOST']}/welcome");
     exit();
 }

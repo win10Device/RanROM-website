@@ -1,12 +1,11 @@
 <?php
-
 define('TITLE', "Login");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_logged_out();
 ?>
 
-<script src="../assets/vendor/alerty/js/alerty.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../assets/vendor/alerty/css/alerty.min.css">
+<script src="/assets/vendor/alerty/js/alerty.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/vendor/alerty/css/alerty.min.css">
 <?php
 if (!check_session()) {
 	$user1 = $_SESSION['username'];
@@ -24,7 +23,7 @@ if (!check_session()) {
                 <?php insert_csrf_token(); ?>
 
                 <div class="text-center">
-                    <img class="mb-1" src="../assets/images/logo.png" alt="" width="130" height="130">
+                    <img class="mb-1" src="/assets/images/logo.png" alt="" width="130" height="130">
                 </div>
 
                 <h6 class="h3 mb-3 font-weight-normal text-muted text-center">Login to your Account</h6>
@@ -82,7 +81,7 @@ if (!check_session()) {
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit" value="loginsubmit" name="loginsubmit">Login</button>
 
-                <p class="mt-3 text-muted text-center"><a href="../reset-password/">forgot password?</a></p>
+                <p class="mt-3 text-muted text-center"><a href="/reset-password/">forgot password?</a></p>
 
                 <p class="mt-4 mb-3 text-muted text-center">
                     <a href="https://github.com/msaad1999/PHP-Login-System" target="_blank">
@@ -92,7 +91,7 @@ if (!check_session()) {
                         MIT License
                     </a>
                 </p>
-                
+
             </form>
         </div>
         <div class="col-sm-4">
@@ -104,7 +103,7 @@ if (!check_session()) {
 
 <?php
 
-include '../assets/layouts/footer.php'
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>
 

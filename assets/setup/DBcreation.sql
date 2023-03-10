@@ -1,4 +1,4 @@
--- WARNING: This will no long work with modifcation due to an update to MySQL which makes the charset invaild
+
 --
 -- Database: `klik_loginsystem`
 --

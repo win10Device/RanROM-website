@@ -1,7 +1,7 @@
 <?php
 
 define('TITLE', "Signup");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 check_logged_out();
 
 ?>
@@ -21,7 +21,7 @@ check_logged_out();
                 <div class="picCard text-center">
                     <div class="avatar-upload">
                         <div class="avatar-preview text-center">
-                            <div id="imagePreview" style="background-image: url( ../assets/uploads/users/_defaultUser.png );"></div>
+                            <div id="imagePreview" style="background-image: url( /assets/uploads/users/_defaultUser.png );"></div>
                         </div>
                         <div class="avatar-edit">
                             <input name='avatar' id="avatar" class="fas fa-pencil" type='file' />
@@ -56,12 +56,11 @@ check_logged_out();
                 <div class="form-group">
                     <label for="username" class="sr-only">Username</label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-                    <sub class="text-danger">
+                    <sub class="text-danger" id="example-output_1">
                         <?php
                             if (isset($_SESSION['ERRORS']['usernameerror']))
                                 echo $_SESSION['ERRORS']['usernameerror'];
-
-                        ?>
+			?>
                     </sub>
                 </div>
 
@@ -159,9 +158,9 @@ check_logged_out();
 
 <?php
 
-include '../assets/layouts/footer.php'
-
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script type="text/javascript">
     function readURL(input) {
@@ -182,6 +181,58 @@ include '../assets/layouts/footer.php'
         console.log("here");
         readURL(this);
     });
+
+
+;(function($){
+    $.fn.extend({
+        donetyping: function(callback,timeout){
+            timeout = timeout || 5e2; // 0.5 second default timeout
+            var timeoutReference,
+                doneTyping = function(el){
+                    if (!timeoutReference) return;
+                    timeoutReference = null;
+                    callback.call(el);
+                };
+            return this.each(function(i,el){
+                var $el = $(el);
+                $el.is(':input') && $el.on('keyup keypress paste',function(e){
+                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    if (timeoutReference) clearTimeout(timeoutReference);
+                    timeoutReference = setTimeout(function(){
+                        doneTyping(el);
+                    }, timeout);
+                }).on('blur',function(){
+                    doneTyping(el);
+                });
+            });
+        }
+    });
+})(jQuery);
+
+$('#username').donetyping(function(){
+    if (document.getElementById("username").value.length > 5) {
+        fetch('https://www.ranrom.xyz/register/test.php', {
+            method: 'POST',
+            headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded' //'application/json'
+            },
+            body: "User=" + document.getElementById("username").value //}) //JSON.stringify({ "id": 78912 })
+        })
+        .then(response => response.json())
+        .then(function(response) {
+            if(response === false) {
+                $('#example-output_1').text("Username already taken!")
+            } else {
+                $('#example-output_1').text("")
+            };
+        })
+    } else if (document.getElementById("username").value != "") {
+        $('#example-output_1').text("Username too short!")
+    } else {
+        $('#example-output_1').text("")
+    };
+});
+
 </script>
 
 <noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/register"); ?>"> </noscript>

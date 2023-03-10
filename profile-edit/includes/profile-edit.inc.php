@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require '../../assets/includes/security_functions.php';
-require '../../assets/includes/auth_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 check_verified();
 
-require '../../assets/vendor/PHPMailer/src/Exception.php';
-require '../../assets/vendor/PHPMailer/src/PHPMailer.php';
-require '../../assets/vendor/PHPMailer/src/SMTP.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/Exception.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/PHPMailer.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/SMTP.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -39,8 +39,8 @@ if (isset($_POST['update-profile'])) {
     }
 
 
-    require '../../assets/setup/db.inc.php';
-    require '../../assets/includes/datacheck.php';
+    require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/db.inc.php";
+    require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";
 
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -100,7 +100,7 @@ if (isset($_POST['update-profile'])) {
             $fileExt = explode('.', $fileName);
             $fileActualExt = strtolower(end($fileExt));
 
-            $allowed = array('jpg', 'jpeg', 'png', 'gif');
+            $allowed = array('jpg', 'jpeg', 'png', 'gif', 'webp');
             if (in_array($fileActualExt, $allowed))
             {
                 if ($fileError === 0)
@@ -108,7 +108,7 @@ if (isset($_POST['update-profile'])) {
                     if ($fileSize < 10000000)
                     {
                         $FileNameNew = uniqid('', true) . "." . $fileActualExt;
-                        $fileDestination = '../../assets/uploads/users/' . $FileNameNew;
+                        $fileDestination = "{$_SERVER['DOCUMENT_ROOT']}/assets/uploads/users/" . $FileNameNew;
                         move_uploaded_file($fileTmpName, $fileDestination);
 
                         /*
@@ -117,7 +117,7 @@ if (isset($_POST['update-profile'])) {
                         * -------------------------------------------------------------------------------
                         */
 						if ( $_SESSION['profile_image'] != "_defaultUser.png" ) {
-							if (!unlink('../../assets/uploads/users/' . $_SESSION['profile_image'])) {  
+							if (!unlink("{$_SERVER['DOCUMENT_ROOT']}/assets/uploads/users/" . $_SESSION['profile_image'])) {  
 
 								$_SESSION['ERRORS']['imageerror'] = 'Old image could not be deleted, please contact server owner';
 								header("Location: ../");

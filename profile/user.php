@@ -36,7 +36,7 @@ if (!$deleted) {
 <?php
 $CUSTOM_METATAG = true;
 define('TITLE', "$title");
-include '../assets/layouts/header.php';
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 if ($user == $_SESSION['username']) {
 	$user .= " (you)";
 	}
@@ -95,6 +95,6 @@ if ($user == $_SESSION['username']) {
 
 <?php
 
-include '../assets/layouts/footer.php'
+include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>

@@ -14,8 +14,15 @@ if (!defined('DB_PASSWORD'))                    define('DB_PASSWORD' ,'');
 if (!defined('DB_PORT'))                        define('DB_PORT' ,'');
 
 
-if (!defined('MAIL_HOST'))                      define('MAIL_HOST', '');
+if (!defined('MAIL_HOST'))                      define('MAIL_HOST', 'smtp.gmail.com');
 if (!defined('MAIL_USERNAME'))                  define('MAIL_USERNAME', '');
+if (!defined('MAIL_FROM'))			define('MAIL_FROM', 'no-reply@ranrom.xyz');
 if (!defined('MAIL_PASSWORD'))                  define('MAIL_PASSWORD', '');
-if (!defined('MAIL_ENCRYPTION'))                define('MAIL_ENCRYPTION', 'ssl');
-if (!defined('MAIL_PORT'))                      define('MAIL_PORT', 25);
+// --- DKIM ---
+if (!defined('MAIL_DKIM_DOMAIN'))		define('MAIL_DKIM_DOMAIN', 'ranrom.xyz');
+if (!defined('MAIL_DKIM_FILE'))			define('MAIL_DKIM_FILE', '');
+if (!defined('MAIL_DKIM_SELECTOR'))		define('MAIL_DKIM_SELECTOR', '');
+if (!defined('MAIL_DKIM_PASS'))			define('MAIL_DKIM_PASS','');
+// --- END ---
+if (!defined('MAIL_ENCRYPTION'))                define('MAIL_ENCRYPTION', 'tls');
+if (!defined('MAIL_PORT'))                      define('MAIL_PORT', 587);

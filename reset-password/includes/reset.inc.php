@@ -2,12 +2,12 @@
 
 session_start();
 
-require '../../assets/includes/security_functions.php';
-require '../../assets/includes/auth_functions.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 check_logged_out();
 
-require '../../assets/setup/env.php';
-require '../../assets/setup/db.inc.php';
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/env.php";
+require "{$_SERVER['DOCUMENT_ROOT']}assets/setup/db.inc.php";
 
 if (isset($_POST['resetsubmit'])) {
 
@@ -147,7 +147,7 @@ if (isset($_POST['resetsubmit'])) {
                                 mysqli_stmt_execute($stmt);
                                 
                                 $_SESSION['STATUS']['loginstatus'] = 'password updated, please log in';
-                                header ("Location: ../../login/");
+                                header ("Location: /login/");
                             }
                         }
                     }
