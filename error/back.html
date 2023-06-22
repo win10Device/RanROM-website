@@ -1,0 +1,114 @@
+<?php
+echo "<!DOCTYPE html>";
+
+    $s1 = $_SERVER['QUERY_STRING'];
+    $int1 = strlen($s1);
+    $findme   = '&';
+    $pos1 = strpos($s1, $findme);
+    $pos2      = strripos($s1, $findme);
+    $count = substr_count($s1, $findme);
+    
+    
+    
+//start of string check, handling of single string
+// Note our use of ===.  Simply == would not work as expected
+// because the position of 'a' was the 0th (first) character.
+    if ($pos1 === false && $pos2 === false) {
+	$result1 = substr($s1, 0, $int1); 
+    } else {
+    	$result1 = substr($s1, 0, $pos1);
+    }
+//final check
+    if ($result1 == null && $result2 == null && $result3 == null) {
+	http_response_code(300);
+    }
+    if ($count >= 3) {
+        echo("<b style=\"font-family:verdana; font-size:12px; color:purple;\">405 \rMethod Not Allowed<br>");
+        
+        header("Allow: Query string Syntax; \"?<string>&<string>=<string>\", \"?<string>=<string>&<string>=<string>\" Optional; \"?<string>&<string>=<string>&<string>\", \"?<string>=<string>&<string>=<string>&<string>\"", false, 405);
+        exit;
+    }
+    
+    
+//end of string check, handling of 2,3 strings
+    if ($pos2 === false && $pos1 === false) {
+    	$result2 = substr($s1, 0, $int1);
+    	/*echo "$result1 <br>";*/
+    } elseif ($count < 3) {
+        $result2 = substr($s1, $pos2 + 1, $int1);
+        $result3 = substr($s1, $pos1 + 1, $pos2 - $int1);
+    	if ($count == 1) {//Fix order when there's only 2 strings
+   		$result3 = $result2;
+   		$result2 = "";	
+    	}
+    }
+    
+    
+    
+    
+    
+    //Error - Javascript
+    if ($result1 == "nojavascript") {
+       	$REPLACE1 = array("return", "=");
+       	if($result3 != null) {
+       		$RETURN1 = str_replace($REPLACE1, "", $result3);
+       		if ($_SERVER['HTTPS'] == true) {
+       			echo("<script>window.location.assign(\"https://");
+       		} else {
+       			echo("<script>window.location.assign(\"http://");
+       		}
+		echo($_SERVER['HTTP_HOST']);
+		echo("/");
+		echo($RETURN1);
+		echo("\")</script>");
+       	}
+
+    	echo("<b style=\"font-family:verdana; font-size:13px; color:red;\">Please enable Javascript then reload the page!<br>");
+    	echo("<b style=\"font-family:verdana; font-size:12px; color:black;\">If javascript is enabled but not functioning consider the following;<br>");
+   	echo("<b style=\"font-family:verdana; font-size:12px; color:black;\">• Updating/removing browser extensions. <br>• Updating/reinstalling your browser. <br>• Switching to a newer browser. <br>• Upgrading your operating system and/or hardware. <br>");
+   	if (str_contains($_SERVER['HTTP_USER_AGENT'], '_')) { 
+		echo("<b style=\"font-family:verdana; font-size:12px; color:black;\">(Detected user agent to be potentially be game) <br>• If you are accessing this page from inside game, please check \"Web Settings -> Javascript\" and tick true then restart game. If it's already enabled, please report it as a bug");
+		echo(""); https://www.enable-javascript.com/
+	}
+   	if($result3 == null) {
+       		echo("<b style=\"font-family:verdana; font-size:12px; color:darkred;\">(!) PAGE ONLY HERE FOR TESTING (!) <br> Since there's no redirect address flag this page will not auto redirect to the website. Link: ");
+       		echo("<a style=\"font-family:verdana; font-size:12px; color:blue;\" href=\"https://");
+       		echo($_SERVER['SERVER_ADDR']);
+       		echo("\">Main page</a>  <br>");
+       	}
+    }
+    
+    
+ //Error - HTTPS
+       if ($result1 == "insecure") {
+       	$REPLACE1 = array("return", "=");
+       	$RETURN1 = str_replace($REPLACE1, "", $result2);
+       	
+       	/*if($result3 != null) {
+       		$RETURN1 = str_replace($REPLACE1, "", $result3);
+       		echo("<script>window.location.assign(\"https://");
+		echo($_SERVER['SERVER_ADDR']);
+		echo("/");
+		echo($RETURN1);
+		echo("\")</script>");
+       	}*/
+	echo("<b style=\"font-family:verdana; font-size:13px; color:red;\">Your connection isn't secure!<br>");
+	if($result3 == "https=0") {
+	echo("<b style=\"font-family:verdana; font-size:13px; color:red;\">Please use HTTPS on authorisation pages<br>");
+	echo("<a style=\"font-family:verdana; font-size:12px; color:blue;\" href=\"https://");
+       		echo($_SERVER['HTTP_HOST']);
+       		echo("/");
+       		echo($RETURN1);
+       		echo("\">Return to page</a>  <br>");
+	}
+    }
+    
+    //Error - Just a ping test
+    if ($result1 == "Ping") {
+    	echo("<center style=\"font-family:verdana; color:blue;\">Pong!<br>");
+    }
+    if ($result1 == "game") {
+       echo("<b style=\"font-family:verdana; font-size:12px; color:black;\">Successfully logged in!<br>");
+    }
+    
+?>

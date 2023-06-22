@@ -1,0 +1,16 @@
+User-agent: * 
+
+Allow: /login/
+Allow: /welcome/
+Allow: /register/
+Disallow: /contact/
+Disallow: /login_test/
+Disallow: /phpmyadmin/
+Disallow: /api/v0/*
+Disallow: /assets/*
+Disallow: /redirect.php
+Disallow: /copright/*.png
+
+crawl-delay: 5
+
+Sitemap: https://www.ranrom.xyz/sitemap.xml

