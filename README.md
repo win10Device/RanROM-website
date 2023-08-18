@@ -3,7 +3,7 @@
 A backup of the website, User data expect randomly named profile pictures is not stored here<br>
 Some files maybe modified before been uploaded to github for server security<br><br>
 
-<b>[Special thanks to Kiyo]</b><br>
+<b>[<a href="https://hylia.dev">Special thanks to Hylia</a>]</b><br>
 https://www.ranrom.xyz <br>
 (The webserver isn't online 24/7, so please expect Argo Tunnel errors)
 <br>
