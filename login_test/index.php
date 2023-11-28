@@ -14,16 +14,23 @@ body {
     background-repeat: no-repeat;
     scrollbar-width: none;
     //overflow-y:hidden;
+overflow: hidden;
 }
 body::-webkit-scrollbar{
     display: none;
+    overflow: hidden;
 }
 .login-box {
   margin: 8% 20px 200px;
   margin-right: auto;
   margin-left: auto;
 }
-@media only screen and (max-width: 418px) {
+@media only screen and (max-height: 700px) {
+  .login-box {
+    margin: 5% 10px 100px;
+  }
+}
+@media only screen and (max-width: 418px) { /*418px*/
   .login-box {
     max-width: 80%;
     margin: 0 -7.9%;
@@ -47,48 +54,61 @@ body::-webkit-scrollbar{
 </style>
 
 <?php
-if (!check_session()) {
-	$user1 = $_SESSION['username'];
-	echo ('<script> alerty.toasts(\'We could not verify your session, please enter password\'); </script>');
+
+$check = check_session();
+if (empty($_SESSION['username'])) {
+ $check = true;
+}
+if (!$check) {
+  $user1 = $_SESSION['username'];
+  $profile_image = htmlspecialchars($_SESSION['profile_image']);
+  $output_image = "\"/assets/uploads/users/{$profile_image}\"";
+  echo ('<script> alerty.toasts(\'We could not verify your session, please enter password\'); </script>');
 }
 ?>
 
-<div class="container-fluid">
-<div class="row">
+<div class="ms-3"> <!-- container -->
+  <div class="row">
     <!-- div class="fixed-end d-flex align-items-center justify-content-left vh-100 aa" -->
     <div class="login-box">
         <form class="border_fill form-floating" action="includes/login.inc.php" method="post" id="formId" onsubmit="return false">
         <?php insert_csrf_token(); ?>
         <div class="text-center">
-            <img class="mb-1" src="/assets/images/logo.png" alt="" width="140" height="140">
+            <img class="mb-1 <?php if(!$check) echo 'rounded-circle'; ?>" <?php if($check) echo 'src="/assets/images/logo.png"'; else echo 'src=' . $output_image;  ?>  alt="" width="140" height="140">
         </div>
         <h6 class="h2 mb-3 font-weight-normal text-muted text-center">Login to your Account</h6>
 
         <div class="form-floating mb-3">
-          <input type="text" type="email" class="form-control <?php if(isset($_SESSION['ERRORS']['nouser'])) echo 'is-invalid"'; else echo '"'; ?> /*id="floatingInput"*/ id="username" placeholder="name@example.com" value="test@example.com" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback">
-          <label for="floatingInput">Email addresss/Username</label>
-          <div id="validationServerUsernameFeedback" class="invalid-feedback">
-             <?php echo $_SESSION['ERRORS']['nouser']; ?>
+          <input type="text" type="email" class="form-control" id="username" placeholder="name@example.com" <?php if(!$check) echo "disabled value={$user1}"; else echo "autofocus";?>>
+          <label class="form-label" for="username">Email addresss/Username</label>
+          <div class="invalid-feedback" id="UsernameFeedback">
+             <!-- ?php echo $_SESSION['ERRORS']['nouser']; ? -->
           </div>
         </div>
         <div class="form-floating mb-2">
-          <input type="password" class="form-control" /*id="floatingPassword"*/ id="password" placeholder="Password">
-          <label for="floatingPassword">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
+          <label for="password">Password</label>
+          <div class="invalid-feedback" id="PasswordFeedback">
+          </div>
         </div>
         <div class="col-12 mb-3">
+            <?php if ($check) { ?>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" id="aaaa" for="flexCheckDefault">
-                  Default checkbox
+                <input class="form-check-input" type="checkbox" value="" id="rememberme">
+                <label class="form-check-label" id="aaaa" for="rememberme">
+                  Remember Me
                 </label>
             </div>
+            <?php } else { ?>
+            <i>Session Security</i>
+            <?php } ?>
         </div>
-        <div class="test">
-            <button class="btn btn-lg btn-primary fadeButton" type="submit" value="loginsubmit" name="loginsubmit">Sign in</button>
+        <div class="testa">
+            <button class="btn btn-lg btn-primary fadeButton test" type="submit" value="loginsubmit" name="loginsubmit">Sign in</button>
+            <a class="mt-3 text-muted text-center p-1"><a href="/reset-password/">forgot password?</a></a>
         </div>
         </form>
-    </div>
-</div>
+    </div>  </div>
 </div>
 <!--div class="container fade-in" -->
     <!-- div class="row" -->
@@ -193,34 +213,50 @@ if (!check_session()) {
 <script>
 const button = document.querySelector('.fadeButton');
 const div = document.querySelector('.test');
-//const UB = document.querySelector('.username');
-
 button.addEventListener('click', () => {
     div.classList.remove('fade-in');
     div.classList.add('hidden')
     var delayInMilliseconds = 800; //0.8 second
-
+    $('.test').prop('disabled', true);
     setTimeout(function() {
         //your code to be executed after 0.8 second
+        $('.test').prop('disabled', false);
         $.ajax('includes/login.inc.php', {
             type: 'POST',  // http method
-            data: { token: /*document.getElementById("token").value*/<?php echo '"'. get_csrf_token() . '"'; ?>, username: document.getElementById("username").value, password: document.getElementById("password").value, loginsubmit: "loginsubmit" },  // data to submit
+            data: { token: <?php echo '"'. get_csrf_token() . '"'; ?>, username: <?php if ($check) echo 'document.getElementById("username").value'; else echo "\"{$user1}\""; ?>, password: document.getElementById("password").value, <?php if ($check) echo 'rememberme: document.getElementById("rememberme").value,'; ?> loginsubmit: "loginsubmit" },  // data to submit
             success: function (data, status, xhr) {
-                if (data == "ok") {
-                    window.location.replace('/home');
+                var json = jQuery.parseJSON(data);
+                if (json.response == "ok") {
+                    window.location.replace(
+                    <?php
+                    switch (trim($_GET['fwd'])) {
+                      case 'forums':
+                        echo "'http://fourms.ranrom.xyz'";
+                        break;
+                      default:
+                        echo "'/home'";
+                    }?>);
                 } else {
-                    $("#aaaa").html(null);
-                    $("#aaaa").append(data);
-		    $("#username").add('is-invaild')
-                    //UB.classList.add('is-invaild')
+                    if(json.response == "err") {
+                      if(json.w == "both") {
+                        $('#username').removeClass('is-vaild').addClass('is-invalid')
+                      }
+                      if(json.w == "user") {
+                        $('#username').removeClass('is-vaild').addClass('is-invalid')
+                        $('#UsernameFeedback').text(json.e)
+                        $('#PasswordFeedback').text('')
+                      }
+                      if(json.w == "pass") {
+                        $('#password').removeClass('is-vaild').addClass('is-invalid')
+                        $('#UsernameFeedback').text('');
+                        $('#PasswordFeedback').text(json.e)
+                      }
+                    }
                     div.classList.add('fade-in')
                     div.classList.remove('hidden')
                 }
-                //$('p').append('status: ' + status + ', data: ' + data);
-                //document.getElementById("aaaa").value = "a"; //<?php echo "\"{$_SESSION['ERRORS']['wrongpassword']} a\""; ?>;
             },
             error: function (jqXHR, textStatus, errorMessage) {
-                //$('p').append('Error' + errorMessage);
                 if(jqXHR.status == 403) {
                     window.location.replace('./');
                 }
@@ -230,7 +266,6 @@ button.addEventListener('click', () => {
                 div.classList.remove('hidden')
             }
         }).done(function () {
-            //console.log(<?php echo "\"{$_SESSION['ERRORS']['wrongpassword']}\"";?>);
             document.getElementById('aaaa').value = "a";
         })
     }, delayInMilliseconds);
@@ -251,11 +286,16 @@ button.addEventListener('click', () => {
 }
 $input-border-color:                    $gray-400;
 </style>
+
+<?php
+if(empty($_GET['nojs'])) {
+  $actual_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://{$_SERVER['HTTP_HOST']}/login_test/?nojs=1";
+  echo "<noscript><meta http-equiv=\"refresh\" content=\"0; URL={$actual_link}\" /></noscript>";
+}
+?>
 <?php
 
 include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
 
 ?>
-
-
-<noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/login"); ?>"> </noscript>
+<!-- noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/login"); ?>"> </noscript -->

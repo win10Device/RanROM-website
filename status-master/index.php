@@ -88,10 +88,10 @@ if ($servers_list)
 		<div class="title">memory usage</div>
 		<div id="meminfo" class="box">
 			<div>
-				<span id="mem-usage" class="value"><?php echo ($mem['total'] - $mem['free']); ?></span> /
+				<span id="mem-usage" class="value"><?php echo abs($mem['total'] - $mem['free']); ?></span> /
 				<span id="mem-total"><?php echo $mem['total']; ?></span> <?php echo $mem_multiple; ?>
 				(<span id="mem-cached" class="value"><?php echo $mem['cached']; ?></span> <?php echo $mem_multiple; ?> cached)
-				<progress id="mem" value="<?php echo ($mem['total'] - $mem['free']); ?>" max="<?php echo $mem['total']; ?>"></progress>
+				<progress id="mem" value="<?php echo abs($mem['total'] - $mem['free']); ?>" max="<?php echo $mem['total']; ?>"></progress>
 			</div>
 		</div>
 

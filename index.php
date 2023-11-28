@@ -6,7 +6,10 @@ if (isset($_SESSION['auth'])) {
     exit();
 }
 else {
-
-    header("Location: https://{$_SERVER['HTTP_HOST']}/welcome");
-    exit();
+    if(empty($_GET['redirect'])) {
+        header("Location: /welcome");
+        exit();
+    } else {
+        exit("<h4>Redirected from play.ranrom.xyz</h4><br>Nothing here yet. <a href=\"/\">Contuine</a>");
+    }
 }

@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
@@ -8,6 +8,7 @@ check_logged_out();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/env.php";
 require "{$_SERVER['DOCUMENT_ROOT']}assets/setup/db.inc.php";
+
 
 if (isset($_POST['resetsubmit'])) {
 
@@ -39,7 +40,7 @@ if (isset($_POST['resetsubmit'])) {
     $selector = $_POST['selector'];
     $validator = $_POST['validator'];
     $password = $_POST['newpassword'];
-    $passwordRepeat = $_POST['confirmpassword'];    
+    $passwordRepeat = $_POST['confirmpassword'];
 
     if (empty($selector) || empty($validator)) {
 

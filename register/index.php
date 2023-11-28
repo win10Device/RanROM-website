@@ -20,7 +20,7 @@ check_logged_out();
 
                 <div class="picCard text-center">
                     <div class="avatar-upload">
-                        <div class="avatar-preview text-center">
+                        <div class="avatar-preview text-center z-n1">
                             <div id="imagePreview" style="background-image: url( /assets/uploads/users/_defaultUser.png );"></div>
                         </div>
                         <div class="avatar-edit">
@@ -40,7 +40,7 @@ check_logged_out();
                 </div>
 
                 <h6 class="h3 mt-3 mb-3 font-weight-normal text-muted text-center">Create an Account</h6>
-                <div class="text-center mb-3" style="font-family:Sans-serif; font-size:12px;">This website is still in development, if your account infomation is deemed to be inapprropriate, your account information will be edited and notified of the changes!</div>
+                <div class="text-center mb-3" style="font-family:Sans-serif; font-size:12px;">This website is still in development, if your account infomation is deemed to be inappropriate, your account information will be edited and notified of the changes!</div>
                 <div class="text-center mb-3" style="font-family:Sans-serif; font-size:12px; position: relative; left: 0px; bottom: 15px;"">(Passwords cannot be viewed or edited)</div>
 
                 <div class="text-center mb-3">
@@ -53,85 +53,84 @@ check_logged_out();
                     </small>
                 </div>
 
-                <div class="form-group">
-                    <label for="username" class="sr-only">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-                    <sub class="text-danger" id="example-output_1">
-                        <?php
+                <div class="form-floating mb-2">
+                  <input type="username" class="form-control <?php if (isset($_SESSION['ERRORS']['usernameerror'])) echo "is-invalid"; else echo "is-vaild"; ?>" id="username" name="username" placeholder="s" aria-describedby="validationUsername">
+                  <label for="username">Username</label>
+                  <div id="validationUsername" class="invalid-feedback">
+                  <?php
                             if (isset($_SESSION['ERRORS']['usernameerror']))
                                 echo $_SESSION['ERRORS']['usernameerror'];
-			?>
-                    </sub>
+                  ?>
+                  </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email address</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-                    <sub class="text-danger">
-                        <?php
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control <?php if (isset($_SESSION['ERRORS']['emailerror'])) echo '';/*echo "is-invalid"; else echo "is-vaild";*/ ?>" id="email" name="email" placeholder="name@example.com" required aria-describedby="validationPassword">
+                  <label for="email">Email address</label>
+                  <div id="validationEmail" class="invalid-feedback">
+                   <?php
                             if (isset($_SESSION['ERRORS']['emailerror']))
                                 echo $_SESSION['ERRORS']['emailerror'];
-
-                        ?>
-                    </sub>
+                  ?>
+                  </div>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
                 </div>
 
-<div class="text-center mb-3" >
-	<b class="text-danger" style="font-family:Sans-serif; font-size:12px; position: relative; left: 0px; bottom: 0px;" >Are security may not be the strongest, so please use a password you've never used before</b>
+        <div class="text-center mb-3" >
+	  <b class="text-danger" style="font-family:Sans-serif; font-size:12px; position: relative; left: 0px; bottom: 0px;" >Our security may not be the strongest, so please use a password you've never used before</b>
 	</div>
-
-
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="form-floating">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                  <label for="password">Password</label>
                 </div>
-
-                <div class="form-group mb-4">
-                    <label for="confirmpassword" class="sr-only">Confirm Password</label>
-                    <input type="password" id="confirmpassword" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
-                    <sub class="text-danger mb-4">
-                        <?php
-                            if (isset($_SESSION['ERRORS']['passworderror']))
-                                //echo $_SESSION['ERRORS'] ['passworderror'];
-                        ?>
-                    </sub>
+                <div class="form-floating">
+                  <input type="password" class="form-control <?php if (isset($_SESSION['ERRORS']['passworderror'])) echo "is-invalid"; else echo "is-vaild"; ?>" id="confirmpassword" name="confirmpassword" placeholder="Password" aria-describedby="validationPassword" required>
+                  <label for="confirmpassword">Confirm Password</label>
+                  <div id="validationPassword" class="invalid-feedback">
+                    <?php
+                            //if (isset($_SESSION['ERRORS']['passworderror']))
+                                echo $_SESSION['ERRORS'] ['passworderror'];
+                     ?>
+                  </div>
                 </div>
-
                 <hr>
-                <span class="h5 mb-3 font-weight-normal text-muted text-center">Optional</span>
+                <span class="h5 mb-5 font-weight-normal text-muted text-center">Optional</span>
                 <br><br>
 
-                <div class="form-group">
-                    <label for="first_name" class="sr-only">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name">
+
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                  <label for="first_name">First Name</label>
                 </div>
 
-                <div class="form-group">
-                    <label for="last_name" class="sr-only">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                  <label for="last_name">Last Name</label>
                 </div>
 
-                <div class="form-group mt-4">
-                    <label for="headline" class="sr-only">Headline</label>
-                    <input type="text" id="headline" name="headline" class="form-control" placeholder="headline">
+                <div class="form-floating mb-2 mt-4">
+                  <input type="text" class="form-control" id="headline" name="headline" placeholder="Headline">
+                  <label for="headline">Headline</label>
                 </div>
 
-                <div class="form-group">
-                    <label for="bio" class="sr-only">Profile Details</label>
-                    <textarea type="text" id="bio" name="bio" class="form-control" placeholder="Tell us about yourself..."></textarea>
+
+                <div class="form-floating mb-2">
+                  <textarea class="form-control" id="bio" name="bio" placeholder="bio" style="height: 100px"></textarea>
+                  <label for="bio">Tell us about yourself...</label>
                 </div>
 
-                <div class="form-group">
-                    <label>Gender</label>
-
-                    <div class="custom-control custom-radio custom-control">
-                        <input type="radio" id="male" name="gender" class="custom-control-input" value="m">
-                        <label class="custom-control-label" for="male">Male</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control">
-                        <input type="radio" id="female" name="gender" class="custom-control-input" value="f">
-                        <label class="custom-control-label" for="female">Female</label>
-                    </div>
+                <div class="form-group mb-2">
+                  <label>Gender</label>
+                  <div class="custom-control custom-radio custom-control ms-2">
+                    <input type="radio" id="male" name="gender" class="custom-control-input" value="m">
+                    <label class="custom-control-label" for="male">Male</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control ms-2">
+                    <input type="radio" id="female" name="gender" class="custom-control-input" value="f">
+                    <label class="custom-control-label" for="female">Female</label>
+                  </div>
                 </div>
 
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name='signupsubmit'>Signup</button>
@@ -221,18 +220,25 @@ $('#username').donetyping(function(){
         .then(response => response.json())
         .then(function(response) {
             if(response === false) {
-                $('#example-output_1').text("Username already taken!")
+                console.log("a");
+                $('#validationUsername').text("Username already taken!")
+                $('#username').addClass("is-invalid")
+                $('#username').removeClass("is-valid")
             } else {
-                $('#example-output_1').text("")
+                $('#validationUsername').text("")
+                $('#username').removeClass("is-invalid")
+                $('#username').addClass("is-valid")
             };
         })
     } else if (document.getElementById("username").value != "") {
-        $('#example-output_1').text("Username too short!")
+        $('#validationUsername').text("Username too short!")
+        $('#username').addClass("is-invalid")
     } else {
-        $('#example-output_1').text("")
+        $('#validationUsername').text("")
+        $('#username').addClass("is-invalid")
+        $('#username').removeClass("is-valid")
     };
 });
-
 </script>
 
 <noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/register"); ?>"> </noscript>

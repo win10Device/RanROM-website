@@ -10,6 +10,10 @@ require '../../assets/vendor/PHPMailer/src/Exception.php';
 require '../../assets/vendor/PHPMailer/src/PHPMailer.php';
 require '../../assets/vendor/PHPMailer/src/SMTP.php';
 
+
+//require_once("{$_SERVER['DOCUMENT_ROOT']}/error/error.php");
+//ErrorType(-2);
+
 if (isset($_POST['signupsubmit'])) {
 
     $selector = bin2hex(random_bytes(8));
@@ -93,9 +97,29 @@ if (isset($_POST['signupsubmit'])) {
         $mail->setFrom(MAIL_FROM, APP_NAME);
         $mail->addAddress($to);
 
+
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $message;
+
+
+        //This should be the same as the domain of your From address
+        $mail->DKIM_domain = MAIL_DKIM_DOMAIN;
+        //See the DKIM_gen_keys.phps script for making a key pair -
+        //here we assume you've already done that.
+        //Path to your private key:
+        $mail->DKIM_private = MAIL_DKIM_FILE;
+        //Set this to your own selector
+        $mail->DKIM_selector = MAIL_DKIM_SELECTOR;
+        //Put your private key's passphrase in here if it has one
+        $mail->DKIM_passphrase = MAIL_DKIM_PASS;
+        //The identity you're signing as - usually your From address
+        $mail->DKIM_identity = $mail->From;
+        //Suppress listing signed header fields in signature, defaults to true for debugging purpose
+        $mail->DKIM_copyHeaderFields = false;
+        //Optionally you can add extra headers for signing to meet special requirements
+        $mail->DKIM_extraHeaders = ['List-Unsubscribe', 'List-Help'];
+
 
         $mail->send();
     } 

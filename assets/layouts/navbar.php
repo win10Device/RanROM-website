@@ -1,8 +1,9 @@
 <?php
-	//include '../assets/includes/auth_functions.php';
-?>
-<?php if (!isset($_SESSION['auth'])) { ?>
 
+	include '/assets/includes/auth_functions.php';
+?>
+
+<?php if (!isset($_SESSION['auth'])) { ?>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-2">
 
         <?php } else { ?>
@@ -26,22 +27,16 @@
 
                     <?php } ?>
 
-                    <!?php echo APP_NAME; ?>
                     <b> <?php echo APP_NAME; ?> </b>
 
                 </a>
-                 <?php if (!isset($_SESSION['auth'])) { ?>
-                  <!a class="mt-4 mb-3 text-muted" target="_blank" href="https://akenodev.xyz/">
-                   	<!b style="font-family:fantasy; font-size:12px; color:light_blue; position: relative; left: 25px; bottom: 8.5px;" > <!Special Thanks to akeno!</b>
-                    	<?php } ?>
-                    </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -52,10 +47,11 @@
                     <ul class="navbar-nav ml-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/welcome">Welcome</a>
+                            <a class="nav-link" href="/welcome" rel="noopener noreferrer">Welcome</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://kiyodev.xyz">Thanks Kiyo</a>
+                            <a class="nav-link" href="https://www.ranrom.xyz/INVAILD.php" rel="noopener noreferrer"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">Thanks ...</a>
+                            <!-- a class="nav-link" href="https://kiyodev.xyz" rel="noopener noreferrer">Thanks Akeno</a -->
                         </li>
 
                         <?php if (!isset($_SESSION['auth'])) { ?>
@@ -65,7 +61,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="/login">Login</a>
+                                <a class="nav-link" href="/login_test">Login</a>
                             </li>
 
                             <li class="nav-item">
@@ -73,7 +69,13 @@
                             </li>
 
                         <?php } else { ?>
-
+<?php /*
+                            <li class="nav-item" style="color: white; font-size: 12px;">
+                                <small>
+                                <i class="nav-link"> <b>Sorry,</b><br>This section has been disabled;<br>Order of operation bug that broke redirects</i>
+                                </small>
+                            </li>
+*/ ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="/dashboard">Dashboard</a>
                             </li>
@@ -88,22 +90,19 @@
 
                             <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="imgdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  <?php if(!check_session()) echo "disabled"; ?>>
-
 				    <img class="navbar-img" src="/assets/uploads/users/<?php echo $_SESSION['profile_image'] ?>">
                                     <span class="caret"></span>
                                 </button>
+<?php ob_start(); ?>
                                 <div class="dropdown-menu" aria-labelledby="imgdropdown">
                                     <a class="dropdown-item text-muted" href="/profile"><i class="fa fa-user pr-2"></i> Profile</a>
                                     <a class="dropdown-item text-muted" href="/profile-edit"><i class="fa fa-pencil-alt pr-2"></i> Edit Profile</a>
                                     <a class="dropdown-item text-muted" href="/logout"><i class="fa fa-running pr-2"></i> Logout</a>
                                 </div>
+
                             </div>
 
                         <?php } ?>
-
-
-
-
 
                     </ul>
                 </div>

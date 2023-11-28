@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require '../../assets/includes/security_functions.php';
 require '../../assets/includes/auth_functions.php';
@@ -16,6 +16,9 @@ require '../../assets/vendor/PHPMailer/src/Exception.php';
 require '../../assets/vendor/PHPMailer/src/PHPMailer.php';
 require '../../assets/vendor/PHPMailer/src/SMTP.php';
 
+
+require_once("{$_SERVER['DOCUMENT_ROOT']}/error/error.php");
+//ErrorType(-2);
 
 if (isset($_POST['resentsend'])) {
 
@@ -46,7 +49,7 @@ if (isset($_POST['resentsend'])) {
 
     $selector = bin2hex(random_bytes(8));
     $token = random_bytes(32);
-    $url = "localhost/loginsystem/reset-password/?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "https://www.ranrom.xyz/reset-password/?selector=" . $selector . "&validator=" . bin2hex($token);
     $expires = 'DATE_ADD(NOW(), INTERVAL 1 HOUR)';
 
     $email = $_POST['email'];
@@ -89,7 +92,7 @@ if (isset($_POST['resentsend'])) {
     }
 
 
-    $sql = "INSERT INTO auth_tokens (user_email, auth_type, selector, token, expires_at) 
+    $sql = "INSERT INTO auth_tokens (user_email, auth_type, selector, token, expires_at)
             VALUES (?, 'password_reset', ?, ?, " . $expires . ");";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -120,11 +123,17 @@ if (isset($_POST['resentsend'])) {
 
     $mail_variables = array();
 
-    $mail_variables['APP_NAME'] = APP_NAME;
-    $mail_variables['email'] = $email;
-    $mail_variables['url'] = $url;
+    $mail_variables['APP'] = APP_NAME;
+    //$mail_variables['email'] = $email;
+    $mail_variables['URL'] = $url;
+    if (isset($user))
+	$mail_variables['USER'] = $user;
+    else
+	$mail_variables['USER'] = "user";
+    $mail_variables['DEVICE_INFO'] = apache_get_version();
 
-    $message = file_get_contents("./template_passwordresetemail.php");
+    $message = file_get_contents("./template_newemail.php");
+    //$message = file_get_contents("./template_passwordresetemail.php");
 
     foreach($mail_variables as $key => $value) {
         
@@ -143,7 +152,7 @@ if (isset($_POST['resentsend'])) {
         $mail->SMTPSecure = MAIL_ENCRYPTION;
         $mail->Port = MAIL_PORT;
 
-        $mail->setFrom(MAIL_USERNAME, APP_NAME);
+        $mail->setFrom(MAIL_FROM, APP_NAME);
         $mail->addAddress($to, APP_NAME);
 
         $mail->isHTML(true);

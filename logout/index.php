@@ -1,11 +1,9 @@
 <?php
-
-session_start();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 check_logged_in();
-
-
 
 if(isset($_COOKIE[session_name()])){
 
@@ -33,9 +31,6 @@ if(isset($_COOKIE['rememberme'])) {
 
 session_unset();
 session_destroy();
-
+$_SESSION = NULL;
 header("Location: /login/");
 exit();
-
-
-

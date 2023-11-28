@@ -1,17 +1,16 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-if (!empty($_GET)) {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
    $json = json_encode($_GET);
 }
-if (!empty($_POST)) {
-   $json = json_encode($_POST);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   $json = file_get_contents('php://input');
 }
-//$json = file_get_contents('php://input');
 
 $data = json_decode($json);
 
-if (empty($json)) {
+if (empty($data)) {
     $temp['error'] = "Null Request";
     die(json_encode($temp));
 }
@@ -53,8 +52,8 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
     if ($row = mysqli_fetch_assoc($result)) {
         $response['username'] = $row['username'];
         //$response['email'] = obfuscate_email($row['email']);
-        $response['first_name'] = $row['first_name'];
-        $response['last_name'] = $row['last_name'];
+        //$response['first_name'] = $row['first_name'];
+        //$response['last_name'] = $row['last_name'];
         $response['gender'] = $row['gender'];
         $response['headline'] = $row['headline'];
         $response['bio'] = $row['bio'];

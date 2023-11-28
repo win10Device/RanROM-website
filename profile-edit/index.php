@@ -11,10 +11,11 @@ function xss_filter($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
-
+//var_dump($_SESSION['ISSUES']);
 ?>
-
-
+<?php if ($_SESSION['username'] == htmlspecialchars("\'") || $_SESSION['username'] == 'test')
+echo "<h3>Your attempts are pointless</h3>";
+?>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
@@ -66,7 +67,7 @@ function xss_filter($data) {
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?php echo xss_filter($_SESSION['username']); ?>" autocomplete="off">
-                    <sub class="text-danger">
+                    <sub class="text-danger" id="validationUsername">
                         <?php
                             if (isset($_SESSION['ERRORS']['usernameerror']))
                                 echo $_SESSION['ERRORS']['usernameerror'];
@@ -181,5 +182,71 @@ include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";
         console.log("here");
         readURL(this);
     });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+;(function($){
+    $.fn.extend({
+        donetyping: function(callback,timeout){
+            timeout = timeout || 5e2;
+            var timeoutReference,
+                doneTyping = function(el){
+                    if (!timeoutReference) return;
+                    timeoutReference = null;
+                    callback.call(el);
+                };
+            return this.each(function(i,el){
+                var $el = $(el);
+                $el.is(':input') && $el.on('keyup keypress paste',function(e){
+                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    if (timeoutReference) clearTimeout(timeoutReference);
+                    timeoutReference = setTimeout(function(){
+                        doneTyping(el);
+                    }, timeout);
+                }).on('blur',function(){
+                    doneTyping(el);
+                });
+            });
+        }
+    });
+})(jQuery);
+$('#username').donetyping(function(){
+    if (document.getElementById("username").value === "<?php echo strip_tags($_SESSION['username']); ?>") {
+        $('#validationUsername').text("")
+        $('#username').removeClass("is-invalid")
+        $('#username').removeClass("is-valid")
+    } else {
+    if (document.getElementById("username").value.length > 5) {
+        fetch('https://www.ranrom.xyz/register/test.php', {
+            method: 'POST',
+            headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: "User=" + document.getElementById("username").value
+        })
+        .then(response => response.json())
+        .then(function(response) {
+            if(response === false) {
+                console.log("a");
+                $('#validationUsername').text("Username already taken!")
+                $('#username').addClass("is-invalid")
+                $('#username').removeClass("is-valid")
+            } else {
+                $('#validationUsername').text("")
+                $('#username').removeClass("is-invalid")
+                $('#username').addClass("is-valid")
+            };
+        })
+    } else if (document.getElementById("username").value != "") {
+        $('#validationUsername').text("Username too short!")
+        $('#username').addClass("is-invalid")
+    } else {
+        $('#validationUsername').text("")
+        $('#username').addClass("is-invalid")
+        $('#username').removeClass("is-valid")
+    }
+    };
+});
 </script>
 <noscript> <meta http-equiv = "refresh" content = "0; url = <?php if($_SERVER['HTTPS']) { echo ("https://"); } else { echo ("http://");} echo ($_SERVER['HTTP_HOST']); echo ("/redirect.php?type=error_js&return=/profile-edit"); ?>"> </noscript>

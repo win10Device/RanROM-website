@@ -1,8 +1,24 @@
 <?php
-$data = $_GET['u'];
+//$data = $_GET['u'];
+$data = str_replace("/profile/", null, $_SERVER['REQUEST_URI']);
+if(str_contains($data, "?")) {
+  $data = $_GET['u'];
+}
+if(str_contains($data, '/')) {
+  http_response_code(403);
+  die();
+}
+if (empty($data)) {
+  $data = $_GET['u'];
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+}
+
 $data = trim($data);
 $data = stripslashes($data);
 $data = htmlspecialchars($data);
+
 $username = $data;
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/db.inc.php";

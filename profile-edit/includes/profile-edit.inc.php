@@ -1,5 +1,6 @@
 <?php
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
@@ -95,7 +96,7 @@ if (isset($_POST['update-profile'])) {
             $fileTmpName = $_FILES['avatar']['tmp_name'];
             $fileSize = $_FILES['avatar']['size'];
             $fileError = $_FILES['avatar']['error'];
-            $fileType = $_FILES['avatar']['type']; 
+            $fileType = $_FILES['avatar']['type'];
 
             $fileExt = explode('.', $fileName);
             $fileActualExt = strtolower(end($fileExt));
@@ -287,13 +288,13 @@ if (isset($_POST['update-profile'])) {
             mysqli_stmt_store_result($stmt);
 
 
-            $_SESSION['username'] = $username;
-            $_SESSION['email'] = $email;
-            $_SESSION['first_name'] = $first_name;
-            $_SESSION['last_name'] = $last_name;
-            $_SESSION['gender'] = $gender;
-            $_SESSION['headline'] = $headline;
-            $_SESSION['bio'] = $bio;
+            $_SESSION['username'] = htmlentities($username);
+            $_SESSION['email'] = htmlentities($email);
+            $_SESSION['first_name'] = htmlentities($first_name);
+            $_SESSION['last_name'] = htmlentities($last_name);
+            $_SESSION['gender'] = htmlentities($gender);
+            $_SESSION['headline'] = htmlentities($headline);
+            $_SESSION['bio'] = htmlentities($bio);
             $_SESSION['profile_image'] = $FileNameNew;
 
             $_SESSION['STATUS']['editstatus'] = 'profile successfully updated';

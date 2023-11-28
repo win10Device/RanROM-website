@@ -10,13 +10,13 @@ $domain = 'localhost';
 
 $services_list = [
 	'HTTP' => 80,
+	'SSL' => 443,
 	'SSH' => 22,
 	'MySQL' => 3306,
 	'NTP' => 123,
 	'GPSD' => 2947,
 	'FTP' => 21,
 	'DNS' => 53,
-	'SSL' => 443,
 	'SMTP' => 25,
 	'POP3' => 110
 ];
@@ -28,7 +28,7 @@ $services_list = [
 // If you use shared hosting, ping may be disabled by your host
 
 $servers_list = [
-	'Google' => 'google.com',
-	'192.168.0.178' => '192.168.0.178',
-	'192.168.137.39' => '192.168.137.39'
+//	'Google' => 'google.com',
+//	'192.168.0.178' => '192.168.0.178',
+//	'192.168.137.39' => '192.168.137.39'
 ];

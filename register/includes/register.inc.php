@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";

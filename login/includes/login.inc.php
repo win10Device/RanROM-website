@@ -1,15 +1,13 @@
 <?php
-
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 check_logged_out();
-
 if (!isset($_POST['loginsubmit'])){
-    
     header("Location: ../");
     exit();
 }
@@ -109,8 +107,8 @@ else {
                     exit();
                 }
                 else if ($pwdCheck == true) {
-
-                    session_start();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//                    session_start();
 
                     $_SESSION['SESSION_TYPE'] = "GUI";
 

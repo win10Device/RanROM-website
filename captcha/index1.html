@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/bootstrap.css" rel="stylesheet">
+    <link href="/bootstrap-grid.css" rel="stylesheet">
+    <link href="/bootstrap-reboot.css" rel="stylesheet">
+    <!-- script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script -->
+    <style>
+      #captcha img{-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;padding:6px;};
+    </style>
+  </head>
+  <body>
+    <p>a</p>
+    <h3>adadM</h3>
+    <!-- button id="button" class="btn btn-warning" OnClick="OpenCap()">a</button -->
+    <hr>
+    <p>This is random content, kiyo- <i>I mean, hylia</i> is a furry</p>
+    <p>Hewwo Furdox!</p>
+    <p>Please don't break {1}</p>
+    <div style="padding: 140px"></div>
+    <button id="button" class="btn btn-warning" OnClick="OpenCap()">a</button>
+  </body>
+  <captcha style="position:absolute;display:none;">
+    <link href="https://captcha.ranrom.xyz/bootstrap.css" rel="stylesheet">
+    <link href="https://captcha.ranrom.xyz/bootstrap-grid.css" rel="stylesheet">
+    <link href="https://captcha.ranrom.xyz/bootstrap-reboot.css" rel="stylesheet">
+    <style>
+      .fadeIn{animation:fadeIn 0.2s;z-index:0;}.fadeOut{animation:fadeOut 0.2s;animation-fill-mode:forwards;z-index:-1;}@keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}@keyframes fadeOut{0%{opacity: 1;}100%{opacity:0;}}
+    </style>
+    <div id="captcha" class="shadow p-1 pb-0 bg-body-tertiary rounded" style="max-width:385px;with:25%">
+      <div class="h-25 p-3 pt-2 pb-0" style="background-color:#af1dda;color:#fff;">
+        <div class="d-flex align-content-center flex-wrap">
+          <div class="me-auto p-2">
+            <p class="mb-0">Select all images containing</p>
+            <h3 class="mb-0">{0}</h3>
+            <p class="mb-0">If there are None, click Skip</p>
+          </div>
+          <div class="p-2">
+            <img id="titleimg" src="https://media.ranrom.xyz/a.webp" width="100px"></img>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="d-flex flex-row mb-0 justify-content-center">
+          <div class="position-relative">
+            <img src="https://images.pexels.com/photos/792613/pexels-photo-792613.jpeg?auto=compress&cs=tinysrgb&w=600" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://images.pexels.com/photos/2347774/pexels-photo-2347774.jpeg?auto=compress&cs=tinysrgb&w=600" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://images.pexels.com/photos/2874111/pexels-photo-2874111.jpeg?auto=compress&cs=tinysrgb&w=600" width="128px"></img>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-0 justify-content-center">
+          <div class="position-relative">
+            <img src="https://images.pexels.com/photos/667225/pexels-photo-667225.jpeg?auto=compress&cs=tinysrgb&w=600" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://media.ranrom.xyz/a.webp" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://images.pexels.com/photos/2385390/pexels-photo-2385390.jpeg?auto=compress&cs=tinysrgb&w=600" width="128px"></img>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-0 justify-content-center">
+          <div class="position-relative">
+            <img src="https://media.ranrom.xyz/a.webp" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://media.ranrom.xyz/a.webp" width="128px"></img>
+          </div>
+          <div class="position-relative">
+            <img src="https://media.ranrom.xyz/a.webp" width="128px"></img>
+          </div>
+        </div>
+      </div>
+      <hr class="m-1">
+      <div>
+        <div class="d-flex mb-3">
+          <div class="p-2 pe-0">
+            <div>
+              <img id="icon" src="/rotate-right.svg" width="36"></img>
+            </div>
+          </div>
+          <div class="p-2 ps-1">
+            <a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.12rem, 0); font-size: 10px;" href="#">
+              <img id="icon" src="https://captcha.ranrom.xyz/favicon.ico" width="35" />RanROM CAPTCHA
+            </a>
+          </div>
+          <div class="ms-auto p-2">
+            <button type="button" class="btn btn-primary" style="width:80px;">Skip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var rect = document.getElementById("button");
+      function OpenCap() {
+        const box = Array.from(document.getElementsByTagName("captcha"))[0];
+        box.className = "fadeIn";
+        box.style.display = "";
+        
+        var aa = (rect.offsetParent.offsetTop + rect.getBoundingClientRect().top + window.scrollY) - 540;
+        console.log(aa);
+        if (aa<window.screenTop||aa<0)
+          box.style.top = `${window.screenTop + 18}px`;
+        else
+          box.style.top = `${aa}px`;
+        box.style.left = `${rect.left + 24}px`;
+      }
+      window.addEventListener('click', function(e){   
+        if (!Array.from(document.getElementsByTagName("captcha"))[0].contains(e.target))
+          if (!document.getElementById("button").contains(e.target))
+             box.className = "fadeOut";
+      });
+      const box = Array.from(document.getElementsByTagName("captcha"))[0];
+      const list = Array.from(box.getElementsByTagName("img"));
+      list.forEach((item, index) => {
+        if(item.id=="titleimg"||item.id=="icon")return;
+        item.id=`img_${index}`;
+        item.draggable=false;
+        item.addEventListener("click", function() {
+          Test(`${index}`);
+        });
+      });
+      function Test(aa) {
+        var imgA = document.getElementById(`img_${aa}`);
+        if (imgA.style.scale == 0.92) {
+          imgA.style.scale = 1;
+          imgA.style.backgroundColor = null;
+        } else {
+          imgA.style.scale = 0.92;
+          imgA.style.backgroundColor = "#00ffa6";
+        }
+      }
+    </script>
+  </captcha>
+</html>

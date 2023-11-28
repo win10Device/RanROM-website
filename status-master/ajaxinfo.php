@@ -37,12 +37,12 @@ $meminfo_free = filter_var($get_meminfo[1], FILTER_SANITIZE_NUMBER_INT);
 $meminfo_usage = ($meminfo_total - ($meminfo_free + $meminfo_cached));
 
 if ($meminfo_total >= 10485760) {
-	$mem_cached = round(($meminfo_cached / 1048576), 2);
+	$mem_cached = around(($meminfo_cached / 1048576), 2);
 	$mem_usage = round(($meminfo_usage / 1048576), 2);
 	$mem_multiple = 'GB';
 } else {
 	$mem_cached = round(($meminfo_cached / 1024), 2);
-	$mem_usage = round(($meminfo_usage / 1024), 2);
+	$mem_usage = abs(round(($meminfo_usage / 1024), 2));
 	$mem_multiple = 'MB';
 }
 

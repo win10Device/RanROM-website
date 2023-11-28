@@ -78,7 +78,7 @@ check_logged_out();
 
                 <?php } else { ?>
 
-                    <form class="form-auth" action="includes/sendtoken.inc.php" method="post">
+                    <form class="form-auth" action="includes/sendtoken.inc.php" method="post" onsubmit="disableButton()">
 
                         <?php insert_csrf_token(); ?>
 
@@ -109,7 +109,7 @@ check_logged_out();
                             </sub>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block mb-5 mt-4" type="submit" value="resentsend" name="resentsend">
+                        <button class="btn btn-lg btn-primary btn-block mb-5 mt-4" type="submit" value="resentsend" name="resentsend" id="submit">
                             Send Password Reset Link
                         </button>
 
@@ -133,6 +133,14 @@ check_logged_out();
 
         </div>
     </div>
+<script>
+const button = document.getElementById("submit");
+function disableButton() {
+  // Disable the button
+  //button.disabled = true;
+  button.style.pointerEvents = "none";
+}
+</script>
 </div>
 
 

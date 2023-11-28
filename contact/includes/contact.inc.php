@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/env.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
@@ -13,7 +13,19 @@ require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/PHPMailer.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/vendor/PHPMailer/src/SMTP.php";
 
 if (isset($_POST['contact-submit'])) {
+    $recaptcha = $_POST['g-recaptcha-response'];
+    $secret_key = '6Lf_bpEoAAAAAAbvnsN5N4VHZ_weEFqh5bwy2hct';
 
+    $url = "https://www.google.com/recaptcha/api/siteverify?secret={$secret_key}&response={$recaptcha}";
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+    if ($response->success == true) {
+//        echo '<script>alert("Google reCAPTACHA verified")</script>';
+    } else {
+        $_SESSION['ERRORS']['mailstatus'] = 'reCaptcha challenge failed';
+        header("Location: ../");
+        exit();
+    }
     /*
     * -------------------------------------------------------------------------------
     *   Securing against Header Injection

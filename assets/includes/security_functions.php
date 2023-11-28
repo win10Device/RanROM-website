@@ -1,9 +1,10 @@
 <?php
+//require_once "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
 
 function _cleaninjections($test) {
 
     $find = array(
-        "/[\r\n]/", 
+        "/[\r\n]/",
         "/%0[A-B]/",
         "/%0[a-b]/",
         "/bcc\:/i",
@@ -19,25 +20,31 @@ function _cleaninjections($test) {
 }
 
 function generate_csrf_token() {
-
+    echo '';
     if (!isset($_SESSION)) {
-
-        session_start();
+      //session_start();
+      require_once "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+        //session_start();
     }
 
     if (empty($_SESSION['token'])) {
 
         $_SESSION['token'] = bin2hex(random_bytes(32));
+    } else {
+       //$_SESSION['token'] = bin2hex(random_bytes(32));
     }
 }
 
 function insert_csrf_token() {
 
     generate_csrf_token();
-
-    echo '<input type="hidden" name="token" value="' . $_SESSION['token'] . '" />';
+    echo '<input type="hidden" name="token" id="token" value="' . $_SESSION['token'] . '" />';
 }
 
+function get_csrf_token() {
+    generate_csrf_token();
+    return $_SESSION['token'];
+}
 function verify_csrf_token() {
 
     generate_csrf_token();

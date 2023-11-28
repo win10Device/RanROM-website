@@ -1,7 +1,11 @@
 <?php
+if ($_SERVER['HTTP_ORIGIN'] != "https://www.ranrom.xyz") {
+  http_response_code(401);
+x/ exit();
+}
 $data = $_POST['User'];
-//$data = trim($data);
-//$data = stripslashes($data);
+$data = trim($data);
+$data = stripslashes($data);
 $data = htmlspecialchars($data);
 $username = $data;
 

@@ -27,7 +27,7 @@ class Chat implements MessageComponentInterface {
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
         foreach ($this->clients as $client) {
-            if (strlen($msg) >= 500) {
+            if (strlen($msg) >= 200) {
                 if ($from == $client) {
                     $client->send("Server: Message was rejected because it was long!");
                 }

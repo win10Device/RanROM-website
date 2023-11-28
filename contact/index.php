@@ -5,7 +5,7 @@ include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
 
 ?>
 
-
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <main role="main" class="container">
 
     <div class="row">
@@ -14,9 +14,9 @@ include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
             <?php include("{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/profile-card.php"); ?>
 
         </div>
-        <div class="col-sm-9 px-5">
-
-            <form class="form-auth" action="includes/contact.inc.php" method="post">
+        <div class="col-sm-7 px-5 mt-5">
+<!-- form-auth -->
+            <form class="" action="includes/contact.inc.php" method="post">
 
                 <?php insert_csrf_token(); ?>
 
@@ -40,27 +40,29 @@ include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/header.php";
                 </div>
 
                 <?php if(!isset($_SESSION['auth'])) { ?>
-
-                <div class="form-group">
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required autofocus>
+                <div class="form-floating mb-3" style="display:block;">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="name@example.com">
+                  <label for="name">Name</label>
                 </div>
 
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                  <label for="email">Email</label>
                 </div>
 
                 <?php } ?>
-
-                <div class="form-group">
-                    <label for="message" class="sr-only">Message</label>
-                    <textarea type="password" id="message" name="message" class="form-control message" placeholder="Message" required></textarea>
+                <div class="form-floating mb-3">
+                  <textarea class="form-control" placeholder="Message..." id="message" name="message" style="height: 100px"></textarea>
+                  <label for="message">Message...</label>
                 </div>
-
-                <div class="text-center mx-5 px-5">
+                <div class="g-recaptcha" data-sitekey="6Lf_bpEoAAAAADzszKrJ71vCTpM9YPcNotCaZUbV">
+                </div><br>
+                <div class="p-2 text-center">
+                  <button type="submit" name="contact-submit" value="contact-submit" class="btn btn-primary" style="width: 30%;">Send</button>
+                </div>
+                <!-- div class="text-center mx-5 px-5">
                     <button class="btn btn-lg btn-primary btn-block" type="submit" name="contact-submit" value="contact-submit">Submit</button>
-                </div>
+                </div -->
 
                 <p class="mt-4 mb-3 text-muted text-center">
                     <a href="https://github.com/msaad1999/PHP-Login-System" target="_blank">

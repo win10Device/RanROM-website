@@ -1,4 +1,9 @@
 <?php
+//Check iframe
+if ($_SERVER['HTTP_SEC_FETCH_DEST'] == "iframe") {
+  http_response_code(403);
+  die("<h3>ranrom.xyz</h3>Loading from iframe is not allowed!<br>If someone is trying to get you to log in, they are trying to <u>steal your information</u>!");
+}
 function check_session() {
 	if(isset($_SESSION['HTTP_USER_AGENT'])) {
 		if (hash_equals($_SESSION['HTTP_USER_AGENT'], $_SERVER['HTTP_USER_AGENT'])) {
@@ -16,7 +21,6 @@ function check_session() {
 function check_logged_in() {
 
     if (isset($_SESSION['auth'])){
-
         return true;
     }
     else {
@@ -35,9 +39,8 @@ function check_logged_in_butnot_verified(){
             return true;
         }
         elseif ($_SESSION['auth'] == 'verified') {
-
             header("Location: /home/");
-            exit();
+            exit("A");
         }
     }
     else {
@@ -86,7 +89,7 @@ function check_verified() {
     else {
 
         header("Location: /login/");
-        exit();
+        die();
     }
 }
 

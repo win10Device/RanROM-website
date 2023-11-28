@@ -16,6 +16,11 @@ require '../../assets/vendor/PHPMailer/src/Exception.php';
 require '../../assets/vendor/PHPMailer/src/PHPMailer.php';
 require '../../assets/vendor/PHPMailer/src/SMTP.php';
 
+
+//require_once("{$_SERVER['DOCUMENT_ROOT']}/error/error.php");
+//ErrorType(-2);
+
+
 if (isset($_POST['verifysubmit'])) {
 
     /*
@@ -98,17 +103,17 @@ if (isset($_POST['verifysubmit'])) {
 
     $mail_variables = array();
 
-    $mail_variables['APP_NAME'] = APP_NAME;
-    $mail_variables['email'] = $email;
+//    $mail_variables['APP_NAME'] = APP_NAME;
+//    $mail_variables['email'] = $email;
     $mail_variables['url'] = $url;
 
-    $message = file_get_contents("./a/template_verificationemail.php");
-
+//    $message = file_get_contents("/var/www/html/register/includes/a/template_verificationemail.php");
+$message = file_get_contents("/var/www/html/verify/includes/template_newemail.php");
     foreach($mail_variables as $key => $value) {
-        
+
         $message = str_replace('{{ '.$key.' }}', $value, $message);
     }
-    
+
 
     $mail = new PHPMailer(true);
 
@@ -122,19 +127,39 @@ if (isset($_POST['verifysubmit'])) {
         $mail->SMTPSecure = MAIL_ENCRYPTION;
         $mail->Port = MAIL_PORT;
 
-        $mail->setFrom(MAIL_FROM, APP_NAME);
+        $mail->Sender = 'no-reply@gmail.com';
+        $mail->setFrom(MAIL_FROM, APP_NAME, FALSE);
         $mail->addAddress($to);
 
         $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body    = $message;
+        $mail->Body = $message;
+
+
+        //This should be the same as the domain of your From address
+        $mail->DKIM_domain = MAIL_DKIM_DOMAIN;
+        //See the DKIM_gen_keys.phps script for making a key pair -
+        //here we assume you've already done that.
+        //Path to your private key:
+        $mail->DKIM_private = MAIL_DKIM_FILE;
+        //Set this to your own selector
+        $mail->DKIM_selector = MAIL_DKIM_SELECTOR;
+        //Put your private key's passphrase in here if it has one
+        $mail->DKIM_passphrase = MAIL_DKIM_PASS;
+        //The identity you're signing as - usually your From address
+        $mail->DKIM_identity = $mail->From;
+        //Suppress listing signed header fields in signature, defaults to true for debugging purpose
+        $mail->DKIM_copyHeaderFields = false;
+        //Optionally you can add extra headers for signing to meet special requirements
+        $mail->DKIM_extraHeaders = ['List-Unsubscribe', 'List-Help'];
+
 
         $mail->send();
     } 
     catch (Exception $e) {
 
         // for public use
-        $_SESSION['STATUS']['verify'] = 'email could not be sent, try again later' . $main->ErrorInfo;
+        $_SESSION['STATUS']['verify'] = 'email could not be sent, try again later' . $mail->ErrorInfo;
 
         // for development use
          $_SESSION['STATUS']['mailstatus'] = 'email could not be sent. ERROR: ' . $mail->ErrorInfo;

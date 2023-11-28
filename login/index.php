@@ -12,13 +12,14 @@ if (!check_session()) {
 	echo ('<script> alerty.toasts(\'We could not verify your session, please enter password\'); </script>');
 }
 ?>
-<div class="container" >
+<div class="container fade-in" >
     <div class="row">
         <div class="col-sm-4">
 
         </div>
-        <div class="col-sm-4">
-            <form class="form-auth" action="includes/login.inc.php" method="post">
+        <div class="col-sm-4 test">
+
+            <form class="form-auth" action="includes/login.inc.php" method="post" id="formId">
 
                 <?php insert_csrf_token(); ?>
 
@@ -41,12 +42,12 @@ if (!check_session()) {
                 <div class="form-group">
                     <label for="username" class="sr-only">Username</label>
                     	<input type="text" id="username" name="username" class="form-control" placeholder="Username" required  <?php if(!check_session()) echo "disabled value=$user1"; else echo "autofocus";?>>
-                    <?php 
+                    <?php
                     	if (!check_session())
                     		echo("<input type=\"hidden\" name=\"username\" class=\"form-control\" value=$user1 required>"); 
                     ?>
                     <!input type="text" id="username" name="username" class="form-control" placeholder="Username" value="" required autofocus>
-                    <sub class="text-danger">
+                    <sub class="text-danger" id="nouser">
                         <?php
                             if (isset($_SESSION['ERRORS']['nouser']))
                                 echo $_SESSION['ERRORS']['nouser'];
@@ -55,10 +56,10 @@ if (!check_session()) {
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
+                    <label for="password" class="sr-only" id="wrongpassword">Password</label>
          			<input type="password" id="password" name="password" class="form-control" placeholder="Password" required  <?php if(!check_session()) echo "autofocus"; ?>>
                     <!input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                    <sub class="text-danger">
+                    <sub class="text-danger" id="aaaa">
                         <?php
                             if (!check_session()) {
                             	if (!isset($_SESSION['ERRORS']['wrongpassword'])) {
@@ -79,14 +80,14 @@ if (!check_session()) {
                 </div>
 <?php } ?>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit" value="loginsubmit" name="loginsubmit">Login</button>
+                <button class="btn btn-lg btn-primary btn-block fadeButton" type="submit" value="loginsubmit" name="loginsubmit">Login</button>
 
                 <p class="mt-3 text-muted text-center"><a href="/reset-password/">forgot password?</a></p>
 
                 <p class="mt-4 mb-3 text-muted text-center">
                     <a href="https://github.com/msaad1999/PHP-Login-System" target="_blank">
                         Login System
-                    </a> | 
+                    </a> |
                     <a href="https://github.com/msaad1999/PHP-Login-System/blob/master/LICENSE" target="_blank">
                         MIT License
                     </a>
@@ -99,8 +100,30 @@ if (!check_session()) {
         </div>
     </div>
 </div>
+<script src="/assets/vendor/js/jquery-3.4.1.min.js"></script>
+<script>
+const button = document.querySelector('.fadeButton');
+const div = document.querySelector('.test');
 
+button.addEventListener('click', () => {
+//   div.classList.add('hidden')
 
+})
+</script>
+<style>
+
+/* test is applied to a div */
+.test {
+}
+.fadeButton {
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+}
+</style>
 <?php
 
 include "{$_SERVER['DOCUMENT_ROOT']}/assets/layouts/footer.php";

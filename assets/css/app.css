@@ -1,9 +1,10 @@
 html,
 body {
-    overflow-x: hidden;
+    overflow-y: auto; /* Hide vertical scrollbar */
+    overflow-x: auto;
     height: 100%;
 }
-
+:root{ scrollbar-width: none }
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
@@ -24,6 +25,7 @@ body {
     height: auto;
     padding: 10px;
     font-size: 16px;
+    /*box-shadow: 0px .25rem .75rem rgba(0, 0, 0, 0.03);*/
 }
 
 .form-auth .form-control:focus {
@@ -38,6 +40,15 @@ body {
     margin-bottom: 10px;
 }
 
+.form-control:focus {
+    border-color: rgba(13, 110, 253, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(13, 110, 253, 0.6);
+    animation: fadeIn 0s;
+}
+.form-control:hover {
+    border-color: rgba(13, 110, 253, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.045) inset, 0 0 8px rgba(13, 110, 253, 0.2);
+}
 
 /* --------------User Image Upload---------------------- */
 
@@ -174,7 +185,7 @@ body {
 /* --------------Footer---------------------- */
 
 footer {
-    margin-top: 100px;
+    /*margin-top: 100px;*/
 }
 
 #myFooter {
@@ -267,4 +278,55 @@ footer {
     margin: 0 auto;
     margin-top: 10px;
     line-height: 25px;
+}
+
+
+/* ------- Custom ------ */
+.fade-in {
+  animation: fadeIn 0.6s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#wrap {min-height: 68.3%; height: 61.3%;}
+#footer {position: relative;
+	clear:both;} 
+/*Opera Fix*/
+body {
+   scrollbar-width: none;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #FFF;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+body { -webkit-font-smoothing: antialiased; }
+
+
+body { overflow: -moz-scrollbars-none; -ms-overflow-style: none;  }
+:root{
+  scrollbar-width: none !important;
+}
+
+body{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

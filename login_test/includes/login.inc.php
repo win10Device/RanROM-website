@@ -1,18 +1,34 @@
 <?php
-session_start();
+require_once "{$_SERVER['DOCUMENT_ROOT']}/assets/setup/session.php";
+//session_start();
 
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/auth_functions.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/datacheck.php";
 require "{$_SERVER['DOCUMENT_ROOT']}/assets/includes/security_functions.php";
 
 check_logged_out();
-
+function exitJSON($input, $issue, $where) {
+  $a['response'] = $input;
+  if (isset($issue))
+    $a['e'] = $issue;
+  if (isset($where))
+    $a['w'] = $where;
+  exit(json_encode($a));
+}
 if (!isset($_POST['loginsubmit'])){
     header("Location: ../");
     exit();
 }
 else {
-
+    if ($_SESSION['error_count'] > 4) {
+      if ($_SESSION['error_time'] + 60 ^ 10 >= time()) {
+        $_SESSION['error_time'] = time();
+        http_response_code(429);
+        exit();
+      } else {
+        $_SESSION['error_count'] = 0;
+      }
+    }
     /*
     * -------------------------------------------------------------------------------
     *   Securing against Header Injection
@@ -33,10 +49,11 @@ else {
 
     if (!verify_csrf_token()){
 
-        $_SESSION['STATUS']['loginstatus'] = 'Request could not be validated';
+        $_SESSION['STATUS']['loginstatus'] = 'Request could not be validateda';
 
         //header("Location: ../");
-        exit($_SESSION['STATUS']['loginstatus']);
+        //exit($_SESSION['STATUS']['loginstatus']);
+        exitJSON("err", $_SESSION['STATUS']['loginstatus'],"");
     }
 
 
@@ -48,7 +65,10 @@ else {
     if (empty($username) || empty($password)) {
         $_SESSION['STATUS']['loginstatus'] = 'fields cannot be empty';
         //header("Location: ../");
-        exit($_SESSION['STATUS']['loginstatus']);
+        $_SESSION['error_count'] += 1;
+        $_SESSION['error_time'] = time();
+        //exit($_SESSION['STATUS']['loginstatus']);
+        exitJSON("err", $_SESSION['STATUS']['loginstatus'],"both");
     }
     else {
 
@@ -64,7 +84,8 @@ else {
 
             $_SESSION['ERRORS']['sqlerror'] = 'SQL ERROR';
             //header("Location: ../");
-            exit($_SESSION['ERRORS']['sqlerror']);
+            //exit($_SESSION['ERRORS']['sqlerror']);
+            exitJSON("err", "sql","");
         }
         else {
 
@@ -91,7 +112,8 @@ else {
 
             $_SESSION['ERRORS']['scripterror'] = 'SQL ERROR';
             //header("Location: ../");
-            exit($_SESSION['ERRORS']['scripterror']);
+            //exit($_SESSION['ERRORS']['scripterror']);
+            exitJSON("err", "sql","");
         }
         else {
 
@@ -108,7 +130,8 @@ else {
 
                     $_SESSION['ERRORS']['wrongpassword'] = 'wrong password';
                     //header("Location: ../");
-                    exit($_SESSION['ERRORS']['wrongpassword']);
+                    //exit($_SESSION['ERRORS']['wrongpassword']);
+                    exitJSON("err","Wrong Password","pass");
                 }
                 else if ($pwdCheck == true) {
 
@@ -160,7 +183,8 @@ else {
 
                             $_SESSION['ERRORS']['scripterror'] = 'SQL ERROR';
                             //header("Location: ../");
-                            exit($_SESSION['ERRORS']['scripterror']);
+                            //exit($_SESSION['ERRORS']['scripterror']);
+                            exitJSON("err","SQL","");
                         }
                         else {
 
@@ -185,7 +209,8 @@ else {
 
                             $_SESSION['ERRORS']['scripterror'] = 'SQL ERROR';
                             //header("Location: ../");
-                            exit($_SESSION['ERRORS']['scripterror']);
+                            //exit($_SESSION['ERRORS']['scripterror']);
+                            exitJSON("err","SQL","");
                         }
                         else {
 
@@ -196,14 +221,16 @@ else {
                     }
 
                     //header("Location: /home/");
-                    exit("ok");
+                    //exit("ok");
+                    exitJSON("ok","","");
                 }
             }
             else {
 
                 $_SESSION['ERRORS']['nouser'] = 'username does not exist';
                 //header("Location: ../");
-                exit($_SESSION['ERRORS']['nouser']);
+                //exit($_SESSION['ERRORS']['nouser']);
+                exitJSON("err","Username doesn't exist!","user");
             }
         }
     }
